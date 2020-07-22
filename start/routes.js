@@ -16,4 +16,11 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+Route.get('/', function({ view }) {
+    return view.render('welcome');
+}).as('welcome');
+
+Route.resource('products', 'ProductController');
+
+Route.post('login', 'UserController.login').as('login');
+// Route.post('register', 'UserController@register').as('register');
