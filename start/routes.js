@@ -20,6 +20,7 @@ Route.get('/', function({ view }) {
     return view.render('welcome');
 }).as('welcome');
 
-Route.resource('products', 'ProductController');
+Route.resource('products', 'ProductController').middleware('auth');
 
 Route.post('login', 'UserController.login').as('login');
+Route.get('logout', 'UserController.logout').as('logout');
