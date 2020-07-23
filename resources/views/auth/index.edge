@@ -1,0 +1,22 @@
+@layout('layouts.app')
+
+@section('root')
+<header>
+    @if(auth.user)
+    {{ auth.user.username }}
+    <a href="{{route('logout')}}">sair</a>
+        
+    @else
+    <a href="{{ route('login') }}">Login</a>
+    @endif
+</header>
+<section>
+  <form action="{{route('login')}}" method="post">
+    {{ csrfField() }}
+    <input type="text" name="email">
+    <input type="text" name="password">
+
+    <button type="submit">Entrar</button>
+  </form>
+</section>
+@endsection
