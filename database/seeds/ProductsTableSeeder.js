@@ -13,10 +13,17 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 const Product = use('App/Models/Product')
+const User = use('App/Models/User')
 
 class ProductsTableSeeder {
   async run () {
-    Factory.model('App/Models/Product').createMany(50)
+    // Factory.model('App/Models/Product').createMany(50)
+    // User.create({
+    //   username: 'jeferson',
+    //   email: 'jeferson@email.com',
+    //   password: '123456'
+
+    // })
   }
 }
 
