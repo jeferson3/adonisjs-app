@@ -1,24 +1,27 @@
 'use strict'
 
+var User = use('App/Models/User')
+
 class UserController {
 
-    async login({ request, response, auth })
-    {
+    async login({ request, response, auth }) {
         var { email, password } = request.all();
-        var user = auth.attempt({ email, password });
 
+        await auth.attempt(email, password);
+
+        return 'Logged succeful'
     }
-    async register({ request, response, auth })
-    {
+    async register({ request, response, auth }) {
         var { username, email, password } = request.all();
-        
+
     }
 
 
-    authenticate({})
-    {
+    async logout({ response, auth }) {
 
-        console.log('register');
+        auth.logout();
+
+        return response.route('welcome');
     }
 
 }
