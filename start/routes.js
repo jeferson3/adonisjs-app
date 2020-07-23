@@ -23,4 +23,3 @@ Route.get('/', function({ view }) {
 Route.resource('products', 'ProductController');
 
 Route.post('login', 'UserController.login').as('login');
-// Route.post('register', 'UserController@register').as('register');
