@@ -8,7 +8,8 @@
 <body>
   <header>
       @if(auth.user)
-      {{ auth.user }}
+      {{ auth.user.username }}
+      <a href="{{route('logout')}}">sair</a>
           
       @else
       <a href="{{ route('login') }}">Login</a>
