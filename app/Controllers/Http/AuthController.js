@@ -19,9 +19,12 @@ class AuthController {
   async login({ request, response, auth }) {
     var { email, password } = request.all();
 
-    await auth.attempt(email, password);
+    if(await auth.attempt(email, password)){
+      return response.route('products.index');
 
-    return response.route('products.index');
+    }
+
+    return 'erro';
   }
 
   async register({view}){
