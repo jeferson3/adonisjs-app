@@ -16,10 +16,14 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+// routes for users
 
-Route.get('/', 'HomeController.index').as('welcome');
+Route.get('', 'HomeController.index').as('welcome')
+Route.get('/:id', 'HomeController.show').as('product.single').prefix('product')
 
-Route.group('', function() {
+// routes for authentication
+
+Route.group(function () {
 
     Route.get('login', 'AuthController.index').as('index');
     Route.get('register', 'AuthController.registerIndex').as('register');
@@ -32,10 +36,24 @@ Route.group('', function() {
 
 }).as('login');
 
-Route.group('product', function(){
-    Route.get('/', 'ProductController.index').as('index');
-    Route.get('/:id', 'ProductController.show').as('show');
+// routes for admin
 
-}).as('products');
+Route.resource('products', 'admin/ProductController')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
