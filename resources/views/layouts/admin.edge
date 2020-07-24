@@ -20,14 +20,14 @@
         <!--Navbar -->
         <nav class="mb-1 px-5 navbar navbar-expand-sm navbar-dark secondary-color lighten-1">
             <a class="navbar-brand" href="{{route('welcome')}}">Adonis JS CRUD</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-            </button>
+            </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin.products.index')}}">Home
+                    <a class="nav-link" href="{{route('products.index')}}">Home
                 </a>
                 </li>
                 
@@ -47,6 +47,7 @@
                     {{auth.user.username}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
+                    <a class="dropdown-item" href="{{route('welcome')}}">Home</a>
                     <a class="dropdown-item" onclick="document.querySelector('form.logout').submit()">Sair</a>
                 </div>
                 </li>
@@ -64,8 +65,17 @@
     <form class="logout" style="display:none;" action="{{route('login.logout')}}" method="post">
         {{ csrfField() }}
     </form>
-
+    
     <div class="container">
+        <div class="row justify-content-center">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" href="{{route('products.index')}}" class="btn btn-primary {{url == '/admin/products'? 'active': ''}}">Meus produtos</a>
+            <a type="button" href="{{route('products.create')}}" class="btn btn-primary {{url == '/admin/products/create'? 'active': ''}}">Novo produto</a>
+          </div>
+        </div>
+          
+          
+          
         @!section('root')
     </div>
 
@@ -77,5 +87,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    @!section('script')
 </body>
 </html>
