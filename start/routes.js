@@ -17,9 +17,7 @@
 const Route = use('Route')
 
 
-Route.get('/', function({ view }) {
-    return view.render('welcome');
-}).as('welcome');
+Route.get('/', 'HomeController.index').as('welcome');
 
 Route.group('', function() {
 
@@ -31,7 +29,8 @@ Route.group('', function() {
 
     Route.post('login', 'AuthController.login').as('auth');
     Route.post('logout', 'AuthController.logout').as('logout');
-}).as('login.');
+
+}).as('login');
 
 Route.resource('products', 'ProductController').middleware('auth');
 
