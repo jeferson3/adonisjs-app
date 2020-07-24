@@ -1,0 +1,39 @@
+@layout('layouts.admin')
+
+@section('root')
+  
+<h1>List products</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @each(product in products.data)
+        <tr>
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.price}}</td>
+            <td>Editar Deletar</td>
+        </tr>
+        @endeach
+    </tbody>
+    
+</table>
+
+<p>
+    Page {{pagination.page}} of {{pagination.lastPage}}
+</p>
+<p>
+    <a href="products?page=1">Inicio</a>
+    <a href="products?page={{pagination.lastPage}}">Fim</a>
+</p>
+
+@endsection
