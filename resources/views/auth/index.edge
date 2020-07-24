@@ -1,22 +1,32 @@
 @layout('layouts.app')
 
 @section('root')
-<header>
-    @if(auth.user)
-    {{ auth.user.username }}
-    <a href="{{route('logout')}}">sair</a>
-        
-    @else
-    <a href="{{ route('login') }}">Login</a>
-    @endif
-</header>
-<section>
-  <form action="{{route('login')}}" method="post">
+<div>
+  <form action="{{route('login.auth')}}" method="post">
     {{ csrfField() }}
-    <input type="text" name="email">
-    <input type="text" name="password">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="col-md-12">
+          <div class="md-form input-with-pre-icon">
+            <i class="fas fa-user input-prefix"></i>
+            <label for="email">Email</label>
+            <input class="form-control" type="text" name="email" id="email">
 
-    <button type="submit">Entrar</button>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="md-form input-with-pre-icon">
+            <i class="fas fa-lock input-prefix"></i>
+            <label for="password">Senha</label>
+            <input class="form-control" type="text" name="password" id="password">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <button class="btn btn-success" type="submit">Entrar</button>
+    </div>
+
   </form>
-</section>
+</div>
 @endsection
