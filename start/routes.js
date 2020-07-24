@@ -38,7 +38,10 @@ Route.group(function () {
 
 // routes for admin
 
-Route.resource('products', 'admin/ProductController')
+Route.group(function() {
+    Route.resource('products', 'ProductController')
+    
+}).prefix('admin').namespace('admin')
 
 
 
