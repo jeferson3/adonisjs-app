@@ -23,10 +23,10 @@
               </span>
             </p>
           </div>
-          <button class="btn btn-success">
+          <a class="btn btn-success" href="{{route('products.show', {'id': product.id})}}">
             <i class="fas fa-shopping-cart"></i>
             Comprar
-          </button>
+          </a>
         </div>
     </div>
     @endeach
