@@ -20,16 +20,11 @@ class ProductController {
         return view.render('products.index', { 'products': products.toJSON(), pagination });
     }
 
-    store({ request })
+    async show({ view, params })
     {
-        return request.all();
-    }
-
-    edit({ view, params, compact })
-    {
-        var { id } = params;
-
-        return view.render('products.edit', { id });
+        var {id} = params;
+        var product = await Product.find(id);
+        return view.render('products.show', {'product': product.toJSON()});
     }
 }
 
