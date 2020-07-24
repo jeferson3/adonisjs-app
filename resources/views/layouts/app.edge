@@ -17,7 +17,7 @@
 <body>
     <header>
         <!--Navbar -->
-        <nav class="mb-1 navbar navbar-expand-sm navbar-dark secondary-color lighten-1">
+        <nav class="mb-1 px-5 navbar navbar-expand-sm navbar-dark secondary-color lighten-1">
             <a class="navbar-brand" href="{{route('welcome')}}">Adonis JS CRUD</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,18 +42,17 @@
                 @if(auth.user)
                 <li class="nav-item">
                 <a class="nav-link waves-effect waves-light">
-                    <span class="badge badge-danger">1</span>
+                    <span class="badge badge-danger"></span>
                     <i class="fas fa-shopping-cart"></i>
                 </a>
                 </li>
-                <li class="nav-item avatar dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0"
-                    alt="avatar image">
+                    {{auth.user.username}}
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-                    aria-labelledby="navbarDropdownMenuLink-55">
+                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
                     <a class="dropdown-item" href="#">Perfil</a>
                     <a class="dropdown-item" onclick="document.querySelector('form.logout').submit()">Sair</a>
                 </div>
