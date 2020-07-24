@@ -32,6 +32,10 @@ Route.group('', function() {
 
 }).as('login');
 
-Route.resource('products', 'ProductController').middleware('auth');
+Route.group('product', function(){
+    Route.get('/', 'ProductController.index').as('index');
+    Route.get('/:id', 'ProductController.show').as('show');
+
+}).as('products');
 
 
