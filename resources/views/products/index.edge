@@ -1,3 +1,7 @@
+@layout('layouts.app')
+
+@section('root')
+  
 <h1>List products</h1>
 
 <table>
@@ -31,3 +35,5 @@
     <a href="products?page=1">Inicio</a>
     <a href="products?page={{pagination.lastPage}}">Fim</a>
 </p>
+
+@endsection
