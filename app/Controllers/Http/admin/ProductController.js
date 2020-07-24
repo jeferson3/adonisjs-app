@@ -21,7 +21,12 @@ class ProductController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    return view.render('admin.products.index')
+
+    var page = request.get();
+    var products = await Product.query().paginate(1, 20);
+    var pagination = products.pages;
+    console.log(pagination);
+    return view.render('admin.products.index', {'products': products.toJSON().data, pagination})
   }
 
   /**
