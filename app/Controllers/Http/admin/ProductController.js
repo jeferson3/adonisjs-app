@@ -66,7 +66,9 @@ class ProductController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-    return view.render('admin.products.show')
+    var { id } = params;
+    var product = await Product.find(id)
+    return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
   /**
@@ -107,7 +109,9 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
-    return 'destroy'
+    var {id} = params;
+    console.log(request.all());
+    return "destroy "+id
   }
 }
 
