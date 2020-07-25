@@ -24,9 +24,10 @@ Route.get('/:id', 'HomeController.show').as('product.single').prefix('product')
 // routes for authentication
 
 Route.group(function () {
+    
 
-    Route.get('login', 'AuthController.index').as('index');
-    Route.get('register', 'AuthController.registerIndex').as('register');
+    Route.get('login', 'AuthController.index').as('index').middleware('guest');
+    Route.get('register', 'AuthController.registerIndex').as('register').middleware('guest');
 
 
     Route.post('register', 'AuthController.register').as('');
@@ -41,7 +42,7 @@ Route.group(function () {
 Route.group(function() {
     Route.resource('products', 'ProductController')
     
-}).prefix('admin').namespace('admin')
+}).prefix('admin').namespace('admin').middleware('auth')
 
 
 
