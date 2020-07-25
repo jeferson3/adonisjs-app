@@ -8,7 +8,7 @@
  * Resourceful controller for interacting with products
  */
 
- var Product = use('App/Models/Product')
+var Product = use('App/Models/Product')
 
 class ProductController {
   /**
@@ -20,13 +20,13 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
 
-    var page = isNaN(request.get().page)? '1': request.get().page;
-    var products = await Product.query().paginate(page);
+    var page = isNaN(request.get().page) ? '1' : request.get().page;
+    var products = await Product.query().paginate(page, 10);
     var pagination = products.pages;
     console.log(pagination);
-    return view.render('admin.products.index', {'products': products.toJSON().data, pagination})
+    return view.render('admin.products.index', { 'products': products.toJSON().data, pagination })
   }
 
   /**
@@ -38,7 +38,7 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create({ request, response, view }) {
     return view.render('admin.products.create')
   }
 
@@ -50,8 +50,11 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
-    return 'store'
+  async store({ request, response }) {
+    var product = request.except('_csrf')
+    product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
+    await Product.create(product);
+    return response.route('products.index');
   }
 
   /**
@@ -63,7 +66,7 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
     return view.render('admin.products.show')
   }
 
@@ -76,10 +79,10 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
-    var {id} = params;
+  async edit({ params, request, response, view }) {
+    var { id } = params;
     var product = await Product.find(id)
-    return view.render('admin.products.edit', {'product':product.toJSON()})
+    return view.render('admin.products.edit', { 'product': product.toJSON() })
   }
 
   /**
@@ -90,7 +93,8 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
+
     return 'update'
   }
 
@@ -102,7 +106,7 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
     return 'destroy'
   }
 }
