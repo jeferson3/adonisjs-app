@@ -25,7 +25,6 @@ class ProductController {
     var page = isNaN(request.get().page) ? '1' : request.get().page;
     var products = await Product.query().paginate(page, 10);
     var pagination = products.pages;
-    console.log(pagination);
     return view.render('admin.products.index', { 'products': products.toJSON().data, pagination })
   }
 
@@ -81,6 +80,7 @@ class ProductController {
    */
   async edit({ params, request, response, view }) {
     var { id } = params;
+    console.log(id);
     var product = await Product.find(id)
     return view.render('admin.products.edit', { 'product': product.toJSON() })
   }
