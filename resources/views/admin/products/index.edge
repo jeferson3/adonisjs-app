@@ -28,10 +28,15 @@
                 <a href="{{route('products.edit', {id: product.id})}}"
                 class="btn btn-info btn-md my-0"><i class="fas fa-edit"></i>
                 </a>
-                <a href="{{route('products.destroy', {id: product.id})}}"
+                <a href="#" onclick="document.querySelector('form.form').submit()"
                 class="btn btn-danger btn-md my-0">
                     <i class="fas fa-trash"></i>
                 </a>
+                    <input type="hidden" name="_method" value="GET">
+                <form class="form" action={{"/admin/products/" + product.id + '?_method=DELETE'}} method="post" style="display:none;">
+                    {{ csrfField() }}
+                    <input type="hidden" name="teste" value="{{product.id}}">
+                </form>
                 </td>
         </tr>
         @endeach
@@ -47,6 +52,8 @@
     </tfoot>
   </table>
 </div>
+
+
 
 <div class="row justify-content-center">
     Page {{pagination.page}} of {{pagination.lastPage}}
