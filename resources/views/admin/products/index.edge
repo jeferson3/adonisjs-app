@@ -49,11 +49,18 @@
   </table>
 </div>
 
-<p>
+<div class="row justify-content-center">
     Page {{pagination.page}} of {{pagination.lastPage}}
-</p>
-<p>
-    <a href="products?page=1">Inicio</a>
-    <a href="products?page={{pagination.lastPage}}">Fim</a>
-</p>
+</div>
+<div class="row justify-content-center">
+    <a class="btn btn-primary btn-sm {{pagination.page == 1 ? 'disabled':''}}"  href="products?page=1">Inicio</a>
+    <a class="btn btn-primary btn-sm {{pagination.page == 1 ? 'disabled':''}}"  href="products?page={{pagination.page - 1}}">
+        <i class="fas fa-angle-left fa-2x"></i>
+    </a>
+    <a class="btn btn-primary btn-sm {{pagination.page == pagination.lastPage ? 'disabled':''}}" href="products?page={{pagination.page + 1}}">
+        <i class="fas fa-angle-right fa-2x"></i>
+    </a>
+    <a class="btn btn-primary btn-sm {{pagination.page == pagination.lastPage ? 'disabled':''}}" href="products?page={{pagination.lastPage}}">Fim</a>
+
+</div>
 @endsection
