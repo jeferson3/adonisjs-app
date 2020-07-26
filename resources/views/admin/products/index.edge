@@ -8,7 +8,6 @@
             <tr>
                 <th>#</th>
                 <th>Nome</th>
-                <th>Descrição</th>
                 <th>Preço</th>
                 <th style="text-align:center;">Ações</th>
             </tr>
@@ -18,15 +17,14 @@
         <tr>
             <td>{{product.id}}</td>
             <td>{{product.name}}</td>
-            <td>{{product.description}}</td>
             <td>R$ {{product.price}}</td>
             
-            <td style="text-align:center;">
-                <a href="{{route('products.show', {id: product.id})}}" class="btn btn-warning btn-md my-0">
+            <td class="row justify-content-center" style="text-align:center;">
+                <a href="{{route('products.show', {id: product.id})}}" class="btn btn-warning btn-md my-0 ml-2">
                     <i class="far fa-eye"></i>
                 </a>
                 <a href="{{route('products.edit', {id: product.id})}}"
-                class="btn btn-info btn-md my-0"><i class="fas fa-edit"></i>
+                class="btn btn-info btn-md my-0 ml-2"><i class="fas fa-edit"></i>
                 </a>
                 <form class="form" action={{"/admin/products/" + product.id + '?_method=DELETE'}} method="post" >
                     {{ csrfField() }}
@@ -43,9 +41,8 @@
         <tr>
             <th>#</th>
             <th>Nome</th>
-            <th>Descrição</th>
             <th>Preço</th>
-            <th>Ações</th>
+            <th style="text-align:center;">Ações</th>
         </tr>
     </tfoot>
   </table>
