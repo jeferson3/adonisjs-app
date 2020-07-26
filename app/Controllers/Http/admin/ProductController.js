@@ -67,7 +67,7 @@ class ProductController {
    */
   async show({ params, request, response, view }) {
     var { id } = params;
-    var product = await Product.find(id)
+    var product = await Product.findOrFail(id)
     return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
@@ -82,8 +82,7 @@ class ProductController {
    */
   async edit({ params, request, response, view }) {
     var { id } = params;
-    console.log(id);
-    var product = await Product.find(id)
+    var product = await Product.findOrFail(id)
     return view.render('admin.products.edit', { 'product': product.toJSON() })
   }
 
@@ -96,8 +95,15 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-
-    return 'update'
+    var {id} = params;
+    var newProduct = request.except(['_csrf', '_method']);
+    
+    if(id || request.get()._method == 'PUT' || newProduct.name != ''|| newProduct.price != ''|| newProduct.description != ''){
+      
+      newProduct.price = newProduct.price.replace(',', '.').replace(' ', '').replace('R$', '');
+      await Product.query().where('id', id).update(newProduct);
+    }
+    return response.route('products.index');
   }
 
   /**
@@ -109,9 +115,12 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
-    var {id} = params;
-    console.log(request.all());
-    return "destroy "+id
+    if(id || request.get()._method == 'DELETE'){
+      var {id} = params;
+      var product = await Product.findOrFail(id);
+      await product.delete()
+    }
+    return response.route('products.index');
   }
 }
 
