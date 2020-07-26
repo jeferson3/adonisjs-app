@@ -115,10 +115,12 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
+    var referer = request.headers().referer;
     if(id || request.get()._method == 'DELETE'){
       var {id} = params;
       var product = await Product.findOrFail(id);
       await product.delete()
+      return response.redirect(referer);
     }
     return response.route('products.index');
   }
