@@ -2,7 +2,7 @@
 
 @section('root')
 
-<form action="{{route('products.store')}}" method="post">
+<form action="{{'/admin/products/'+product.id+'?_method=PUT'}}" method="post">
     {{ csrfField() }}
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -46,4 +46,13 @@
 </form>
 
 
+@endsection
+
+@section('script')
+    <script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js" type="text/javascript"></script>
+    <script>
+        $(function() {
+            $('#price').maskMoney({prefix: 'R$ ', decimal:',', thousands: '.'});
+        })
+    </script>
 @endsection
