@@ -52,10 +52,9 @@ class ProductController {
   async store({ request, response }) {
     var product = request.except('_csrf')
     product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
-    var prod = await Product.find(31);
-    prod.images().create({'photo':'image.png'});
-    return prod.images().fetch()
 
+    await Product.create(product);
+    
     return response.route('products.index');
   }
 
@@ -71,6 +70,8 @@ class ProductController {
   async show({ params, request, response, view }) {
     var { id } = params;
     var product = await Product.findOrFail(id)
+    var {photo} = product.images().fetch()
+    return photo
     return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
