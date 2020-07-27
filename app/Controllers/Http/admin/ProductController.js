@@ -52,8 +52,10 @@ class ProductController {
   async store({ request, response }) {
     var product = request.except('_csrf')
     product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
-    product.slug = product.name.trim().replace(' ', '-')
-    await Product.create(product);
+    var prod = await Product.find(31);
+    prod.images().create({'photo':'image.png'});
+    return prod.images().fetch()
+
     return response.route('products.index');
   }
 
@@ -96,13 +98,12 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    var {id} = params;
+    var { id } = params;
     var newProduct = request.except(['_csrf', '_method']);
-    
-    if(id || request.get()._method == 'PUT' || newProduct.name != ''|| newProduct.price != ''|| newProduct.description != ''){
-      
+
+    if (id || request.get()._method == 'PUT' || newProduct.name != '' || newProduct.price != '' || newProduct.description != '') {
+
       newProduct.price = newProduct.price.replace(',', '.').replace(' ', '').replace('R$', '');
-      newProduct.slug = newProduct.name.trim().replace(' ', '-')
 
       await Product.query().where('id', id).update(newProduct);
     }
@@ -119,8 +120,8 @@ class ProductController {
    */
   async destroy({ params, request, response }) {
     var referer = request.headers().referer;
-    if(id || request.get()._method == 'DELETE'){
-      var {id} = params;
+    if (id || request.get()._method == 'DELETE') {
+      var { id } = params;
       var product = await Product.findOrFail(id);
       await product.delete()
       return response.redirect(referer);
