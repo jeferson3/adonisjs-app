@@ -4,19 +4,19 @@
 const Model = use('Model')
 
 class Product extends Model {
-    static  boot  ( )  { 
-        super . boot ( )
+  static boot() {
+    super.boot()
 
-        isso . addTrait ( '@provider: Lucid / Slugify' ,  { 
-          fields : {  slug : 'name'  } , 
-          estratégia : 'dbIncrement' , 
-          disableUpdates : false 
-        } ) 
-      } 
+    this.addTrait('@provider:Lucid/Slugify', {
+      fields: { slug: 'name' },
+      strategy: 'dbIncrement',
+      disableUpdates: false
+    })
+  }
 
-    images(){
-        return this.hasMany('App/Models/Image')
-    }
+  images() {
+    return this.hasMany('App/Models/Image')
+  }
 }
 
 module.exports = Product
