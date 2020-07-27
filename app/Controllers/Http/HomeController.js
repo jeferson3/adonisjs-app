@@ -11,8 +11,8 @@ class HomeController {
 
     async show({ view, params })
     {
-        var {id} = params;
-        var product = await Product.find(id);
+        var {slug} = params;
+        var product = await Product.findBy('slug', slug);
         return view.render('single', {'product': product.toJSON()});
     }
 }
