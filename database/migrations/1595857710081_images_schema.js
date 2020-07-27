@@ -6,8 +6,7 @@ const Schema = use('Schema')
 class ImagesSchema extends Schema {
   up () {
     this.create('images', (table) => {
-      table.increments()
-      table.bigInteger('products_id').unsigned()
+      table.integer('product_id').unsigned()
       table.foreign('product_id').references('id').inTable('products')
       table.text('photo').notNullable()
       table.timestamps()
