@@ -17,7 +17,7 @@ const User = use('App/Models/User')
 
 class ProductsTableSeeder {
   async run () {
-    // Factory.model('App/Models/Product').createMany(50)
+    Factory.model('App/Models/Product').createMany(10)
     // User.create({
     //   username: 'jeferson',
     //   email: 'jeferson@email.com',
