@@ -6,8 +6,13 @@ const Schema = use('Schema')
 class ImagesSchema extends Schema {
   up () {
     this.create('images', (table) => {
-      table.integer('product_id').unsigned()
-      table.foreign('product_id').references('id').inTable('products')
+      table
+      .integer('product_id')
+      .unsigned()
+      .references('id')
+      .inTable('products')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE')
       table.text('photo').notNullable()
       table.timestamps()
     })
