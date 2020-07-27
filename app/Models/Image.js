@@ -4,9 +4,8 @@
 const Model = use('Model')
 
 class Image extends Model {
-    products()
-    {
-        return this.hasOne('App/Models/Product')
+    products() {
+        return this.belongsTo('App/Models/Product')
     }
 }
 
