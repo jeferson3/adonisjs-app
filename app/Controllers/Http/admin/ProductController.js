@@ -52,6 +52,7 @@ class ProductController {
   async store({ request, response }) {
     var product = request.except('_csrf')
     product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
+    product.slug = product.name.trim().replace(' ', '-')
     await Product.create(product);
     return response.route('products.index');
   }
@@ -101,6 +102,8 @@ class ProductController {
     if(id || request.get()._method == 'PUT' || newProduct.name != ''|| newProduct.price != ''|| newProduct.description != ''){
       
       newProduct.price = newProduct.price.replace(',', '.').replace(' ', '').replace('R$', '');
+      newProduct.slug = newProduct.name.trim().replace(' ', '-')
+
       await Product.query().where('id', id).update(newProduct);
     }
     return response.route('products.index');
