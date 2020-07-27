@@ -2,7 +2,9 @@
 
 @section('root')
 <div class="col-md-12 my-3">
-    {{product.images}}
+
+    {{product.images().first().photo}}
+
     <div class="row justify-content-start">
         <div class="col-md-6">
             <img class="img-fluid" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-1.gif" alt="">
