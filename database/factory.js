@@ -16,7 +16,7 @@ const Factory = use('Factory')
 
 Factory.blueprint('App/Models/Product', (faker) => {
   return {
-    name: faker.sentence(),
+    name: faker.sentence({words: 3}),
     description: faker.paragraph(),
     price: faker.floating({fixed:2, min: 1, max: 100}),
   }
