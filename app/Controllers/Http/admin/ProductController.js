@@ -50,26 +50,34 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async store({ request, response }) {
-    // var product = request.except('_csrf')
-    // product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
+    var product = request.except('_csrf')
+    product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
+    var prod = await Product.create(product);
 
-    if(request.files().images){
+    if (request.file('images')) {
+      var productIages = request.file('images', {
+        types: ['image'],
+        size: '2mb',
+        extnames: ['png', 'jpg', 'jpeg']
 
-      request.files().images.forEach(element => {
-        let name = Date.now() + element.clientName
-
-        response.download(Helpers.tmpPath(`uploads/+${name}`))
       });
-      return request.files().images
-    }
-    
-    // var prod = await Product.create(product);
 
-    // if(product.images){
-    //   await prod.images().create({'photo': 'teste2.png'})
-    // }
-    
-    // return response.route('products.index');
+      await productIages.moveAll(Helpers.tmpPath('uploads'), (file) => {
+        return {
+          name: `${Date.now()}.${file.extname}`
+        }
+      })
+
+      if (!productIages.movedAll()) {
+        return productIages.error()
+      }
+      var images = productIages.movedList().map(data => {
+        return {photo:data.fileName}
+      })
+
+      await prod.images().createMany(images)
+    }
+    return response.route('products.index');
   }
 
   /**
@@ -83,7 +91,7 @@ class ProductController {
    */
   async show({ params, request, response, view }) {
     var { id } = params;
-    var product = await Product.query().where('id',id).with('images').first()
+    var product = await Product.query().where('id', id).with('images').first()
     return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
