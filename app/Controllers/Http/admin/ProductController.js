@@ -50,16 +50,26 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async store({ request, response }) {
-    var product = request.except('_csrf')
-    product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
-    
-    var prod = await Product.create(product);
+    // var product = request.except('_csrf')
+    // product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
 
-    if(product.images){
-      await prod.images().create({'photo': 'teste2.png'})
+    if(request.files().images){
+
+      request.files().images.forEach(element => {
+        let name = Date.now() + element.clientName
+
+        response.download(Helpers.tmpPath(`uploads/+${name}`))
+      });
+      return request.files().images
     }
     
-    return response.route('products.index');
+    // var prod = await Product.create(product);
+
+    // if(product.images){
+    //   await prod.images().create({'photo': 'teste2.png'})
+    // }
+    
+    // return response.route('products.index');
   }
 
   /**
@@ -74,7 +84,6 @@ class ProductController {
   async show({ params, request, response, view }) {
     var { id } = params;
     var product = await Product.query().where('id',id).with('images').first()
-    return Helpers.tmpPath('uploads/testes.png')
     return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
