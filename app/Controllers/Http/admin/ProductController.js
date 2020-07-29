@@ -89,7 +89,7 @@ class ProductController {
    */
   async edit({ params, request, response, view }) {
     var { id } = params;
-    var product = await Product.findOrFail(id)
+    var product = await Product.query().where('id', id).with('images').first()
     return view.render('admin.products.edit', { 'product': product.toJSON() })
   }
 
