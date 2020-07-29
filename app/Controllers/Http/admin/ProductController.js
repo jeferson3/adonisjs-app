@@ -9,7 +9,7 @@
  */
 const Product = use('App/Models/Product')
 const Image = use('App/Models/Traits/Image')
-const Helpers = use('Helpers')
+const { validate } = use('Validator')
 
 class ProductController {
   /**
@@ -50,7 +50,7 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {
+  async store({ request, response, session }) {
     var image = new Image()
 
     var product = request.except('_csrf')
