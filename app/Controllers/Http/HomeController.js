@@ -5,7 +5,8 @@ var Product = use('App/Models/Product');
 class HomeController {
     async index({view})
     {
-        var products = await Product.all()
+            
+        var products = await Product.query().with('images').fetch()
         return view.render('welcome', {'products': products.toJSON()});
     }
 
