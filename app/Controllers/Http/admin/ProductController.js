@@ -7,8 +7,9 @@
 /**
  * Resourceful controller for interacting with products
  */
-var Helpers = use('Helpers')
-var Product = use('App/Models/Product')
+const Product = use('App/Models/Product')
+const Image = use('App/Models/Traits/Image')
+const Helpers = use('Helpers')
 
 class ProductController {
   /**
@@ -50,32 +51,14 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async store({ request, response }) {
+    var image = new Image()
+
     var product = request.except('_csrf')
     product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
     var prod = await Product.create(product);
 
     if (request.file('images')) {
-      var productIages = request.file('images', {
-        types: ['image'],
-        size: '2mb',
-        extnames: ['png', 'jpg', 'jpeg']
-
-      });
-
-      await productIages.moveAll(Helpers.tmpPath('uploads'), (file) => {
-        return {
-          name: `${Date.now()}.${file.extname}`
-        }
-      })
-
-      if (!productIages.movedAll()) {
-        return productIages.error()
-      }
-      var images = productIages.movedList().map(data => {
-        return {photo:data.fileName}
-      })
-
-      await prod.images().createMany(images)
+      image.save(prod, request)
     }
     return response.route('products.index');
   }
@@ -92,6 +75,7 @@ class ProductController {
   async show({ params, request, response, view }) {
     var { id } = params;
     var product = await Product.query().where('id', id).with('images').first()
+    // return product
     return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
