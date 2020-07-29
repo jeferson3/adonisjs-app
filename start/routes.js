@@ -45,7 +45,7 @@ Route.group(function() {
 }).prefix('admin').namespace('admin').middleware('auth')
 
 
-
+Route.get('images/:photo', 'ImageController.show').as('image.show');
 
 
 
