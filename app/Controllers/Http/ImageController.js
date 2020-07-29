@@ -18,10 +18,8 @@ class ImageController {
         var { id } = params;
         var product = await Product.find(id)
         removeFile(Helpers.tmpPath(`uploads/${photo}`))
-        product.images()
+        await product.images().where('photo', photo).delete()
         return response.redirect(referer);
-
-
 
     }
 }
