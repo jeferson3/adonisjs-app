@@ -35,9 +35,21 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                @each(item in product.images)
+                <div class="col-md-4 my-2">
+                    <div class="row align-items-center justify-content-center">
+                        <img class="img-prod" src="{{route('image.show', {photo: item.photo})}}"alt="imagem produto">
+                        <a href="{{route('image.delete', {photo:item.photo, id:product.id})}}" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                @endeach
+            </div>
             <div class="row justify-content-center">
                 <button type="submit" class="btn btn-primary">
-                    Cadastrar
+                    Atualizar
                 </button>
             </div>
         </div>
@@ -55,4 +67,17 @@
             $('#price').maskMoney({prefix: 'R$ ', decimal:',', thousands: '.'});
         })
     </script>
+@endsection
+@section('style')
+  <style>
+        .img-prod{
+            width: 200px; height: 100px;
+        }
+        @media(max-width: 768px){
+        .img-prod{
+            width: 80%;
+            height: 200px;
+            }
+        }
+    </style>
 @endsection
