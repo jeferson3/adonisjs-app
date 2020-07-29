@@ -102,6 +102,7 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
+    var image = new Image()
     var { id } = params;
     var newProduct = request.except(['_csrf', '_method']);
 
@@ -110,6 +111,9 @@ class ProductController {
       newProduct.price = newProduct.price.replace(',', '.').replace(' ', '').replace('R$', '');
 
       await Product.query().where('id', id).update(newProduct);
+      if (request.file('images')) {
+        image.save(await Product.find(id), request)
+      }
     }
     return response.route('products.index');
   }
