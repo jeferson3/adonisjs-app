@@ -75,7 +75,6 @@ class ProductController {
   async show({ params, request, response, view }) {
     var { id } = params;
     var product = await Product.query().where('id', id).with('images').first()
-    // return product
     return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
