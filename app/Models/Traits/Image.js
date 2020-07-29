@@ -36,11 +36,6 @@ class Image {
 
     await prod.images().createMany(images)
   }
-
-  async delete()
-  {
-    return 'teste'
-  }
 }
 
 module.exports = Image
