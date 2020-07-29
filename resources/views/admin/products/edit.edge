@@ -2,7 +2,7 @@
 
 @section('root')
 
-<form action="{{'/admin/products/'+product.id+'?_method=PUT'}}" method="post">
+<form action="{{'/admin/products/'+product.id+'?_method=PUT'}}" method="post" enctype="multipart/form-data">
     {{ csrfField() }}
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -31,6 +31,15 @@
                             <label for="description"></label>
                             <textarea placeholder="Decrição" name="description" id="description" cols="30" rows="10" class="form-control"> {{product.description}}
                             </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="md-form">
+                        <div class="form-group">
+                            <input type="file" name="images[]" max="3" class="form-control-file" multiple>
                         </div>
                     </div>
                 </div>
