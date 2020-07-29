@@ -46,6 +46,7 @@ Route.group(function() {
 
 
 Route.get('images/:photo', 'ImageController.show').as('image.show');
+Route.get('images/:id/delete/:photo', 'ImageController.delete').as('image.delete');
 
 
 
