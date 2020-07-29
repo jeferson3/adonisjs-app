@@ -21,13 +21,13 @@
                   @each(item in product.images)
                   @if($loop.index == 0)
                   <div class="carousel-item active">
-                      <img class="d-block w-100" src="{{route('image.show', {photo: item.photo})}}"
+                      <img class="d-block w-100 img-prod" src="{{route('image.show', {photo: item.photo})}}"
                       alt="imagem produto">
                   </div>
                     
                   @else
                   <div class="carousel-item">
-                      <img class="d-block w-100" src="{{route('image.show', {photo: item.photo})}}" alt="imagem produto">
+                      <img class="d-block w-100 img-prod" src="{{route('image.show', {photo: item.photo})}}" alt="imagem produto">
                   </div>
                     
                   @endif
@@ -51,14 +51,13 @@
              
 
               @else
-              <img class="img-fluid" src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-1.gif" alt="">
+              <img src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-1.gif"  class="img-prod">
               @endif
-
-
-
-          
             <p class="card-text">
-              {{product.description}}
+              Clique em <strong>COMPRAR</strong> para saber mais...
+            </p>
+            <p>
+              vkdnvkdnvnv
             </p>
             <p>
               <strong>Preço:</strong>
@@ -75,4 +74,17 @@
     </div>
     @endeach
   </div>
+@endsection
+@section('style')
+  <style>
+    .img-prod{
+      width: 300px; height: 300px;
+    }
+    @media(max-width: 768px){
+      .img-prod{
+        width: 100%;
+        height: 500px;
+      }
+    }
+  </style>
 @endsection
