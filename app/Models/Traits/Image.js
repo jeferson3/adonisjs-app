@@ -1,5 +1,6 @@
 'use strict'
 const Helpers = use('Helpers')
+const { v4:uuidv4 } = require('uuid'); //npm install uuid
 
 class Image {
   register (Model, customOptions = {}) {
@@ -18,10 +19,11 @@ class Image {
       extnames: ['png', 'jpg', 'jpeg']
 
     });
+  
 
     await productIages.moveAll(Helpers.tmpPath('uploads'), (file) => {
       return {
-        name: `${Date.now()}.${file.extname}`
+        name: `${ uuidv4() }-${new Date().getTime()}.${file.extname}`
       }
     })
 
@@ -33,6 +35,11 @@ class Image {
     })
 
     await prod.images().createMany(images)
+  }
+
+  async delete()
+  {
+    return 'teste'
   }
 }
 
