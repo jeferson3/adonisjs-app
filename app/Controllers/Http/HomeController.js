@@ -6,9 +6,8 @@ class HomeController {
     
     async index({view, session})
     {
-        var countCart = session.get('cart').length
         var products = await Product.query().with('images').fetch()
-        return view.render('welcome', {'products': products.toJSON(), countCart});
+        return view.render('welcome', {'products': products.toJSON()});
     }
 
     async show({ view, params })
