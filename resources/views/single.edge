@@ -57,7 +57,7 @@
             @endif
         </div>
         <div class="com-md-6">
-            <form action="{{route('cart.index')}}" method="post">
+            <form action="{{route('cart.store')}}" method="post">
                 {{ csrfField() }}
                 <input type="hidden" name="product_id" value="{{product.id}}">
                 <h1>{{product.name}}</h1>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="def-number-input number-input safari_only my-3">
                     <button type="button" onclick="document.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                    <input class="quantity" min="0" name="qtd" value="1" type="number">
+                    <input class="quantity" min="1" name="qtd" value="1" type="number">
                     <button type="button" onclick="document.querySelector('input[type=number]').stepUp()" class="plus"></button>
                 </div>
                 
