@@ -1,5 +1,7 @@
 'use strict'
 
+const { route } = require('@adonisjs/framework/src/Route/Manager');
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -9,7 +11,6 @@
  */
 const Product = use('App/Models/Product')
 const Image = use('App/Models/Traits/Image')
-const { validate } = use('Validator')
 
 class ProductController {
   /**
@@ -21,8 +22,7 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {
-
+  async index({ request, session, response, view }) {
     var page = isNaN(request.get().page) ? '1' : request.get().page;
     var products = await Product.query().paginate(page, 10);
     var pagination = products.pages;
@@ -52,7 +52,7 @@ class ProductController {
    */
   async store({ request, response, session }) {
     var image = new Image()
-
+    
     var product = request.except('_csrf')
     product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
     var prod = await Product.create(product);
@@ -60,6 +60,8 @@ class ProductController {
     if (request.file('images')) {
       image.save(prod, request)
     }
+    session.flash({ message: 'Produto criado com sucesso' })
+    
     return response.route('products.index');
   }
 
@@ -75,6 +77,10 @@ class ProductController {
   async show({ params, request, response, view }) {
     var { id } = params;
     var product = await Product.query().where('id', id).with('images').first()
+
+    if(!product){
+      return response.route('welcome')
+    }
     return view.render('admin.products.show', { 'product': product.toJSON() })
   }
 
@@ -90,6 +96,9 @@ class ProductController {
   async edit({ params, request, response, view }) {
     var { id } = params;
     var product = await Product.query().where('id', id).with('images').first()
+    if(!product){
+      return response.route('welcome')
+    }
     return view.render('admin.products.edit', { 'product': product.toJSON() })
   }
 
@@ -101,8 +110,9 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {
+  async update({ params, session, request, response }) {
     var image = new Image()
+    
     var { id } = params;
     var newProduct = request.except(['_csrf', '_method']);
 
@@ -110,11 +120,16 @@ class ProductController {
 
       newProduct.price = newProduct.price.replace(',', '.').replace(' ', '').replace('R$', '');
 
-      await Product.query().where('id', id).update(newProduct);
+      var product = await Product.query().where('id', id).update(newProduct);
+      if(!product){
+        return response.route('welcome')
+      }
       if (request.file('images')) {
         image.save(await Product.find(id), request)
       }
     }
+    session.flash({ message: 'Produto atualizado com sucesso' })
+
     return response.route('products.index');
   }
 
@@ -126,16 +141,26 @@ class ProductController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {
+  async destroy({ params, session, request, response }) {
+    
     var referer = request.headers().referer;
     if (id || request.get()._method == 'DELETE') {
       var { id } = params;
       var product = await Product.findOrFail(id);
+      if(!product){
+        return response.route('welcome')
+      }
       await product.delete()
-      return response.redirect(referer);
+      session.flash({ message: 'Produto deletado com sucesso' })
     }
     return response.route('products.index');
   }
 }
+
+
+// session.flash({ notification: 'Update successful!' })
+// @if(flashMessage('notification'))
+//   <span>{{ flashMessage('notification') }}</span>
+// @endif
 
 module.exports = ProductController
