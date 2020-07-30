@@ -3,6 +3,7 @@
 var Product = use('App/Models/Product');
 
 class HomeController {
+    
     async index({view})
     {
             
@@ -13,7 +14,7 @@ class HomeController {
     async show({ view, params })
     {
         var {slug} = params;
-        var product = await Product.findBy('slug', slug);
+        var product = await Product.query().where('slug', slug).with('images').first();
         return view.render('single', {'product': product.toJSON()});
     }
 }
