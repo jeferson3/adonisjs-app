@@ -59,7 +59,7 @@
         <div class="com-md-6">
             <form action="{{route('cart.index')}}" method="post">
                 {{ csrfField() }}
-                <input type="hidden" name="product" value="{{product.id}}">
+                <input type="hidden" name="product_id" value="{{product.id}}">
                 <h1>{{product.name}}</h1>
                 <div class="form-group my-3">
                     <h1>
