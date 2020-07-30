@@ -4,11 +4,11 @@ var Product = use('App/Models/Product');
 
 class HomeController {
     
-    async index({view})
+    async index({view, session})
     {
-            
+        var countCart = session.get('cart').length
         var products = await Product.query().with('images').fetch()
-        return view.render('welcome', {'products': products.toJSON()});
+        return view.render('welcome', {'products': products.toJSON(), countCart});
     }
 
     async show({ view, params })
