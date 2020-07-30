@@ -43,14 +43,14 @@ Route.group(function() {
     Route.resource('products', 'ProductController').validator(new Map([
         [['products.store'], ['ProductValidator']]
     ]))
+    Route.get('cart', 'CartController.index').as('cart.index')
+    Route.post('cart', 'CartController.store').as('cart.store')
     
 }).prefix('admin').namespace('admin').middleware('auth')
 
 
 Route.get('images/:photo', 'ImageController.show').as('image.show');
 Route.get('images/:id/delete/:photo', 'ImageController.delete').as('image.delete');
-
-
 
 
 
