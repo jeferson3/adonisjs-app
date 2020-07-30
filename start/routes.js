@@ -15,7 +15,6 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
-
 // routes for users
 
 Route.get('', 'HomeController.index').as('welcome')
@@ -52,7 +51,6 @@ Route.get('images/:id/delete/:photo', 'ImageController.delete').as('image.delete
 
 Route.get('cart', 'CartController.index').as('cart.index')
 Route.post('cart', 'CartController.store').as('cart.store')
-
 
 
 
