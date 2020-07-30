@@ -40,13 +40,15 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
-                @if(auth.user)
                 <li class="nav-item">
                 <a href="{{route('cart.index')}}" class="nav-link waves-effect waves-light">
-                    <span class="badge badge-danger"></span>
+                    <span class="badge badge-danger">
+                        {{ countCart }}
+                    </span>
                     <i class="fas fa-shopping-cart"></i>
                 </a>
                 </li>
+                @if(auth.user)
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
