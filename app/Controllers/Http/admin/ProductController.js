@@ -22,7 +22,7 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, session, response, view }) {
+  async index({ request, response, view }) {
     var page = isNaN(request.get().page) ? '1' : request.get().page;
     var products = await Product.query().paginate(page, 10);
     var pagination = products.pages;
