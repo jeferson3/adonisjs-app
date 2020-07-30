@@ -1,0 +1,35 @@
+@layout('layouts.app')
+
+@section('root')
+  <h1>Carrinho de compras</h1>
+  @if(cart)
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Qtd</th>
+              <th>Total</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(product in cart)
+            <tr>
+              <td>{{product.name}}</td>
+              <td>{{product.qtd}}</td>
+              <td>R$ {{product.amount}}</td>
+              <td>DELETAR</td>
+            </tr>
+            @endeach
+          </tbody>
+      </table>
+      </div>
+    </div>
+  @else
+    <div class="alert alert-warning">
+      Sem produtos no carrinho...
+    </div>
+  @endif
+@endsection
