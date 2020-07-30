@@ -42,8 +42,12 @@
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item">
                 <a href="{{route('cart.index')}}" class="nav-link waves-effect waves-light">
-                    <span class="badge badge-danger">
-                        {{ countCart }}
+                    <span class="badge badge-secondary">
+                        @if(session != '')
+                        {{ session.length }}
+                        @else
+                        0
+                        @endif 
                     </span>
                     <i class="fas fa-shopping-cart"></i>
                 </a>
@@ -76,6 +80,7 @@
     </form>
 
     <div class="container">
+
         @!section('root')
     </div>
 
