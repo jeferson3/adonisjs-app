@@ -23,14 +23,14 @@
               <td>{{product.price}}</td>
               <td>R$ {{product.amount}}</td>
               <td>
-                <a onclick="document.querySelector('form>input[value]={{ product.name}}').submit()"> {{-- falta concluir --}}
-                  <i class="fas fa-trash text-danger"></i>
-                </a>
+                <form action="{{route('cart.destroy')}}" method="post">
+                  {{ csrfField() }}
+                  <input type="hidden" name="name" value="{{product.name}}">
+                  <button type="submit" class="btn btn-sm">
+                    <i class="fas fa-trash text-danger"></i>
+                  </button>
+                </form>
               </td>
-              <form style="display:none;" class="delete-one" action="{{route('cart.destroy')}}" method="post">
-                {{ csrfField() }}
-                <input type="hidden" name="name" value="{{product.name}}">
-              </form>
           </tr>
           @endeach
         </tbody>
