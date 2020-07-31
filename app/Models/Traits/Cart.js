@@ -43,8 +43,6 @@ class Cart {
       }
 
     }
-    session.flash({ message: 'Produto adicionado ao carrinho' })
-    return response.route('cart.index');
   }
 
 }
