@@ -111,5 +111,10 @@
             "hideMethod": "fadeOut"
         }
     </script>
+    <script>
+        @if(flashMessage('message'))
+            toastr.success("{{flashMessage('message')}}")
+        @endif
+    </script>
 </body>
 </html>
