@@ -1,38 +1,39 @@
 'use strict'
+const Cart = use('App/Models/Traits/Cart')
 
-const Product = use('App/Models/Product')
 
 class CartController {
     async index({ view, session }) {
-        // return session.get('cart')
-        return view.render('cart', {'cart': session.get('cart')})
+        return view.render('cart', { 'cart': session.get('cart') })
     }
     async store({ request, response, session }) {
+        const cart = new Cart()
         var { product_id, qtd } = request.all();
         var id = parseInt(product_id);
+        var qtd = parseInt(qtd);
 
-        if (isNaN(id) || qtd < 1 || typeof id != 'number') {
+        if (isNaN(id) || isNaN(qtd) || qtd < 1 || typeof qtd != 'number' || typeof id != 'number') {
             return response.redirect('back')
         }
-        var product = await Product.find(id);
-        if (!product) {
-            return response.redirect('back')
+        await cart.save(id, qtd, response, session)
+    }
+
+    async destroy({ response, request, session, params }) {
+        var { name } = request.all();
+        var sessionCart = session.get('cart')
+        if (!name) {
+            session.forget('cart')
+        } else {
+            let index=0;
+            sessionCart.forEach(e => {
+                if(e.name == name){
+                    sessionCart.splice(index, 1);
+                }
+                index += 1;
+            });
         }
-        var { name, price } = product;
-        var data = {
-            name,
-            price,
-            qtd,
-            amount: price * qtd
-        }
-        if(session.get('cart')){
-            var newData = session.get('cart')
-            newData.push(data)
-            session.put('cart', newData)
-            return response.route('cart.index');
-        }
-        session.put('cart', [data])
-        return response.route('cart.index');
+        return response.redirect('back')
+        
     }
 }
 
