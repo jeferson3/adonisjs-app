@@ -51,6 +51,7 @@ Route.get('images/:id/delete/:photo', 'ImageController.delete').as('image.delete
 
 Route.get('cart', 'CartController.index').as('cart.index')
 Route.post('cart', 'CartController.store').as('cart.store')
+Route.post('cart/delete', 'CartController.destroy').as('cart.destroy')
 
 
 
