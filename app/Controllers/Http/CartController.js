@@ -16,6 +16,9 @@ class CartController {
             return response.redirect('back')
         }
         await cart.save(id, qtd, response, session)
+        
+        session.flash({ message: 'Produto adicionado ao carrinho' })
+        return response.redirect('back');
     }
 
     async destroy({ response, request, session, params }) {
