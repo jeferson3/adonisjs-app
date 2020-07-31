@@ -32,6 +32,7 @@ class CartController {
                 index += 1;
             });
         }
+        session.flash({message: 'Carrinho atualizado'})
         return response.redirect('back')
         
     }
