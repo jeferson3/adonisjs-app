@@ -10,6 +10,7 @@
             <tr>
               <th>Nome</th>
               <th>Qtd</th>
+              <th>Preço</th>
               <th>Total</th>
               <th>Ações</th>
             </tr>
@@ -19,12 +20,36 @@
             <tr>
               <td>{{product.name}}</td>
               <td>{{product.qtd}}</td>
+              <td>{{product.price}}</td>
               <td>R$ {{product.amount}}</td>
-              <td>DELETAR</td>
-            </tr>
-            @endeach
-          </tbody>
+              <td>
+                <a onclick="document.querySelector('form>input[value]={{ product.name}}').submit()"> {{-- falta concluir --}}
+                  <i class="fas fa-trash text-danger"></i>
+                </a>
+              </td>
+              <form style="display:none;" class="delete-one" action="{{route('cart.destroy')}}" method="post">
+                {{ csrfField() }}
+                <input type="hidden" name="name" value="{{product.name}}">
+              </form>
+          </tr>
+          @endeach
+        </tbody>
       </table>
+
+      <div class="row justify-content-between">
+        <a href="{{route('cart.checkout')}}" class="btn btn-success">
+          <i class="fas fa-check"></i>
+          Concluir compra
+        </a>
+        <form action="{{route('cart.destroy')}}" method="post">
+          {{ csrfField() }}
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i>
+            Cancelar compra
+          </button>
+
+        </form>
+      </div>
       </div>
     </div>
   @else
