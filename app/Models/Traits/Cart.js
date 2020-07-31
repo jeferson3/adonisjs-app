@@ -18,17 +18,16 @@ class Cart {
       price,
       qtd,
       amount: price * qtd
-    }    
-    
-    session.flash({ message: 'Produto adicionado ao carrinho' })
-    if(sessionCart == null){
-        session.put('cart', [data])
+    }
+
+    if (sessionCart == null) {
+      session.put('cart', [data])
     }
     else {
-      if(sessionCart.find(e => e.name == name )){
+      if (sessionCart.find(e => e.name == name)) {
         var index = 0;
         sessionCart.forEach(p => {
-          if(p.name == name){
+          if (p.name == name) {
             p.qtd = parseInt(p.qtd) + qtd
             p.amount = parseInt(p.qtd) * p.price
             sessionCart[index] = p
@@ -38,15 +37,16 @@ class Cart {
         });
       }
 
-        else{
-          sessionCart.push(data)
-          session.put('cart', sessionCart)
-        }
-
+      else {
+        sessionCart.push(data)
+        session.put('cart', sessionCart)
       }
-      return response.route('cart.index');
+
     }
-  
+    session.flash({ message: 'Produto adicionado ao carrinho' })
+    return response.route('cart.index');
+  }
+
 }
 
 module.exports = Cart
