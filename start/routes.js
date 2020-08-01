@@ -39,9 +39,10 @@ Route.group(function () {
 // routes for admin
 
 Route.group(function() {
-    Route.resource('products', 'ProductController').validator(new Map([
-        [['products.store'], ['ProductValidator']]
-    ]))
+    Route.resource('products', 'ProductController')
+    // .validator(new Map([
+    //     [['products.store'], ['ProductValidator']]
+    // ]))
     
 }).prefix('admin').namespace('admin').middleware('auth')
 
