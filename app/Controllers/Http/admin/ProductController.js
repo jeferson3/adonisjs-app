@@ -10,7 +10,11 @@ const { route } = require('@adonisjs/framework/src/Route/Manager');
  * Resourceful controller for interacting with products
  */
 const Product = use('App/Models/Product')
+const Category = use('App/Models/Category')
 const Image = use('App/Models/Traits/Image')
+
+const Database = use('Database')
+// const trx = await Database.beginTransaction()
 
 class ProductController {
   /**
@@ -39,7 +43,9 @@ class ProductController {
    * @param {View} ctx.view
    */
   async create({ request, response, view }) {
-    return view.render('admin.products.create')
+    
+    var categories = await Category.all();
+    return view.render('admin.products.create', {'categories':categories.toJSON()})
   }
 
   /**
@@ -53,9 +59,20 @@ class ProductController {
   async store({ request, response, session }) {
     var image = new Image()
     
-    var product = request.except('_csrf')
+    var product = request.except(['_csrf', 'category'])
+    var categories = request.all().category;
+
     product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
+
     var prod = await Product.create(product);
+
+    if (!prod) {
+      return response.redirect('back');
+    }
+
+    if (categories) {
+      await prod.categories().attach(categories);
+    }
 
     if (request.file('images')) {
       image.save(prod, request)
@@ -95,11 +112,15 @@ class ProductController {
    */
   async edit({ params, request, response, view }) {
     var { id } = params;
+    var allCategories = await Category.all();
     var product = await Product.query().where('id', id).with('images').first()
     if(!product){
       return response.route('welcome')
     }
-    return view.render('admin.products.edit', { 'product': product.toJSON() })
+    var categories = await Product.query().where('id', id).with('categories').first() 
+    categories = categories.toJSON().categories
+    // return categories
+    return view.render('admin.products.edit', { 'product': product, 'categories':allCategories.toJSON(),'prodCategories':categories })
   }
 
   /**
@@ -114,7 +135,8 @@ class ProductController {
     var image = new Image()
     
     var { id } = params;
-    var newProduct = request.except(['_csrf', '_method']);
+    var newProduct = request.except(['_csrf', '_method', 'category'])
+    var categories = request.all().category;
 
     if (id || request.get()._method == 'PUT' || newProduct.name != '' || newProduct.price != '' || newProduct.description != '') {
 
@@ -124,6 +146,12 @@ class ProductController {
       if(!product){
         return response.route('welcome')
       }
+      if(categories){
+        let prod = await Product.find(id)
+        await prod.categories().detach()
+        await prod.categories().attach(categories);
+      }
+
       if (request.file('images')) {
         image.save(await Product.find(id), request)
       }
