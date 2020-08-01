@@ -7,14 +7,14 @@ class HomeController {
     
     async index({view, session})
     {
-        var products = await Product.query().with('images').fetch()
+        var products = await Product.query().with('images').with('categories').fetch()
         return view.render('welcome', {'products': products.toJSON()});
     }
 
     async show({ view, params })
     {
         var {slug} = params;
-        var product = await Product.query().where('slug', slug).with('images').first();
+        var product = await Product.query().where('slug', slug).with('images').with('categories').first();
         return view.render('single', {'product': product.toJSON()});
     }
     async category({response, params, view}){
@@ -24,7 +24,7 @@ class HomeController {
         }
         var products = await Category.query().with('products').where('slug', slug).first()
         var nameCategory = products.toJSON().name
-        products = await products.products().with('images').fetch()
+        products = await products.products().with('images').with('categories').fetch()
         products = products.toJSON()
         return view.render('categories', {products, nameCategory});
         
