@@ -130,7 +130,8 @@ class ProductController {
     }
     product.price = parseFloat(product.price).toFixed(2)
     product.price = 'R$ ' + product.toJSON().price.toString().replace('.', ',')
-    return view.render('admin.products.edit', { 'product': product, 'categories': allCategories.toJSON(), 'prodCategories': categories, nameCategories })
+    // return product
+    return view.render('admin.products.edit', { 'product': product.toJSON(), 'categories': allCategories.toJSON(), 'prodCategories': categories, nameCategories })
   }
 
   /**
@@ -181,15 +182,23 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async destroy({ params, session, request, response }) {
+    var image = new Image()
 
     var referer = request.headers().referer;
     if (id || request.get()._method == 'DELETE') {
       var { id } = params;
-      var product = await Product.findOrFail(id);
+      var product = await Product.query().where('id',id).with('images').first();
       if (!product) {
         return response.route('welcome')
       }
+      var images = product.toJSON().images;
+      if(images != ''){
+        await image.delete(images)
+        
+      }
+      // return images;
       await product.delete()
+
       session.flash({ message: 'Produto deletado com sucesso' })
     }
     return response.route('products.index');
