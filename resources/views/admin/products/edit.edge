@@ -4,7 +4,7 @@
 
 <form action="{{'/admin/products/'+product.id+'?_method=PUT'}}" method="post" enctype="multipart/form-data">
     {{ csrfField() }}
-    <div class="row justify-content-center">
+    <div class="row justify-content-center">        
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-7">
@@ -34,6 +34,25 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                {{--  {{prodCategories[$loop.index].name == category.name?'selected':''}}  --}}
+                <div class="col-md-12">
+                    <select class="mdb-select md-form" multiple searchable="Pesquisar" name="category[]">
+                    <option value="" disabled selected>Adicionar categoria</option>
+                    @each(category in categories)
+                    <option {{nameCategories.indexOf(category.name)!=-1?'selected':''}} value="{{category.id}}">
+                          {{category.name }} 
+                    </option>
+                    @endeach
+
+                    
+                    
+                </select>
+                
+
+                </div>
+                
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -75,6 +94,11 @@
         $(function() {
             $('#price').maskMoney({prefix: 'R$ ', decimal:',', thousands: '.'});
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.mdb-select').materialSelect();
+            });
     </script>
 @endsection
 @section('style')
