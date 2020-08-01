@@ -30,7 +30,8 @@
             <p>
               <strong>Preço:</strong>
               <span style="color: green">
-                R$ {{product.price}}
+                R$ {{product.price.toString().replace('.',',')}}
+            
               </span>
             </p>
           </div>
