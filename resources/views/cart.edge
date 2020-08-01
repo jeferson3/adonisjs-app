@@ -20,8 +20,8 @@
             <tr>
               <td>{{product.name}}</td>
               <td>{{product.qtd}}</td>
-              <td>{{product.price}}</td>
-              <td>R$ {{product.amount}}</td>
+              <td>R$ {{product.price.toString().replace('.',',')}}</td>
+              <td>R$ {{product.amount.toString().replace('.',',')}}</td>
               <td>
                 <form action="{{route('cart.destroy')}}" method="post">
                   {{ csrfField() }}
