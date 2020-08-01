@@ -4,9 +4,10 @@ class ProductValidator {
   get rules () {
     return {
       // validation rules
-      'name': 'required|min:5|unique:products',
+      'name': 'required|min:5|unique:products, id',
       'price': 'required',
       'description':'required|min:10',
+      'category':'required'
     }
   }
 
