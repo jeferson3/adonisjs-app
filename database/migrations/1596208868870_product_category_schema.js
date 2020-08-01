@@ -13,12 +13,16 @@ class ProductCategorySchema extends Schema {
       .unsigned()
       .references('id')
       .inTable('products')
-
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE')
+      
       table
       .integer('category_id')
       .unsigned()
       .references('id')
       .inTable('categories')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE')
 
       table.timestamps()
     })
