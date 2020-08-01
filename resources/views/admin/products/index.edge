@@ -16,7 +16,7 @@
         @each(product in products)
         <tr>
             <td>{{product.id}}</td>
-            <td>{{product.name}}</td>
+            <td>{{truncate(product.name, 15, '...')}}</td>
             <td>R$ {{product.price}}</td>
             
             <td class="row justify-content-center" style="text-align:center;">
