@@ -27,17 +27,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('welcome')}}">Home
+                <li class="nav-item {{url=='/'?'active':''}}">
+                    <a class="nav-link " href="{{route('welcome')}}">Home
                 </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown {{url.indexOf('/category')!=-1?'active':''}}">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">Categorias
                 </a>
                 <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
                     @each(category in menuCategories)
-                    <a class="dropdown-item" href="{{route('category',{slug: category.slug})}}">{{category.name}}</a>
+                    <a class="dropdown-item {{url.indexOf(category.slug)!=-1?'active':''}}" href="{{route('category',{slug: category.slug})}}">{{category.name}}</a>
                     @endeach
                 </div>
                 </li>
