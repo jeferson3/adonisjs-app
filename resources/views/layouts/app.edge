@@ -37,7 +37,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
                     @each(category in menuCategories)
-                    <a class="dropdown-item" href="#">{{category.name}}</a>
+                    <a class="dropdown-item" href="{{route('category',{slug: category.slug})}}">{{category.name}}</a>
                     @endeach
                 </div>
                 </li>
