@@ -64,13 +64,13 @@
                 
         </div>
         
-        <div class="com-md-5">
+        <div class="com-md-7">
             <h1>{{product.name}}</h1>
             <div class="form-group my-3">
                 <h1>
                     Preço:
                     <strong style="color:green;">
-                        R$ {{product.price}}
+                        R$ {{product.price.toString().replace('.',',')}}
                     </strong> 
                 </h1>
             </div>        
