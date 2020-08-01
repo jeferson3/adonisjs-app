@@ -24,7 +24,10 @@
             Clique em <strong>COMPRAR</strong> para saber mais...
           </p>
           <p>
-            Categories: <strong>Bebidas, Games</strong>
+            Categoria: 
+              @each(category in product.categories)
+                <a href="{{route('category', {slug:category.slug})}}">{{category.name}} </a>
+              @endeach
           </p>
           <p>
             <strong>Preço:</strong>
