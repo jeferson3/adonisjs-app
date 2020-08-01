@@ -42,7 +42,9 @@ Route.group(function () {
 Route.group(function() {
     Route.resource('products', 'ProductController')
     .validator(new Map([
-        [['products.store'], ['ProductValidator']]
+        [['products.store'], ['ProductValidator']],
+        [['products.update'], ['ProductValidator']]
+
     ]))
     
 }).prefix('admin').namespace('admin').middleware('auth')
