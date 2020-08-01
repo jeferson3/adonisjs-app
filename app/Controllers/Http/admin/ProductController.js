@@ -1,6 +1,8 @@
 'use strict'
 
 const { route } = require('@adonisjs/framework/src/Route/Manager');
+const Antl = use('Antl')
+const Formats = use('Antl/Formats')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -125,6 +127,8 @@ class ProductController {
         nameCategories.push(e.name)
       });
     }
+
+    return Formats.pass(product.toJSON().price.toString().replace('.',','))
     
     return view.render('admin.products.edit', { 'product': product, 'categories':allCategories.toJSON(),'prodCategories':categories, nameCategories })
   }
