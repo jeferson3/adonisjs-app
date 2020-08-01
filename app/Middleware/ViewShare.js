@@ -3,6 +3,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+var Category = use('App/Models/Category');
+
 class ViewShare {
   /**
    * @param {object} ctx
@@ -11,8 +13,11 @@ class ViewShare {
    */
   async handle ({ request, view, session }, next) {
     // call next to advance the request
-    view.share({
-      session: session.get('cart') ? session.get('cart') : '' //compartilha com todas as views a session
+    const categories = await Category.all();
+    view.share({//compartilha com todas as views os dados
+      session: session.get('cart') ? session.get('cart') : '',
+      menuCategories: categories.toJSON()
+       
     })
     await next()
   }
