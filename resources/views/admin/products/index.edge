@@ -17,7 +17,7 @@
         <tr>
             <td>{{product.id}}</td>
             <td>{{truncate(product.name, 15, '...')}}</td>
-            <td>R$ {{product.price}}</td>
+            <td>R$ {{product.price.toString().replace('.',',')}}</td>
             
             <td class="row justify-content-center" style="text-align:center;">
                 <a href="{{route('products.show', {id: product.id})}}" class="btn btn-warning btn-md my-0 ml-2">
