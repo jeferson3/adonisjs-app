@@ -119,8 +119,14 @@ class ProductController {
     }
     var categories = await Product.query().where('id', id).with('categories').first() 
     categories = categories.toJSON().categories
-    // return categories
-    return view.render('admin.products.edit', { 'product': product, 'categories':allCategories.toJSON(),'prodCategories':categories })
+    let nameCategories =[]
+    if(categories){
+      categories.forEach(e => {
+        nameCategories.push(e.name)
+      });
+    }
+    
+    return view.render('admin.products.edit', { 'product': product, 'categories':allCategories.toJSON(),'prodCategories':categories, nameCategories })
   }
 
   /**
@@ -158,7 +164,7 @@ class ProductController {
     }
     session.flash({ message: 'Produto atualizado com sucesso' })
 
-    return response.route('products.index');
+    return response.redirect('back');
   }
 
   /**
