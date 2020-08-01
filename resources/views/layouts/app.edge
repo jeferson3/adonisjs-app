@@ -36,7 +36,9 @@
                     aria-haspopup="true" aria-expanded="false">Categorias
                 </a>
                 <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
-                    <a class="dropdown-item" href="#">Action</a>
+                    @each(category in menuCategories)
+                    <a class="dropdown-item" href="#">{{category.name}}</a>
+                    @endeach
                 </div>
                 </li>
             </ul>
@@ -81,7 +83,7 @@
     </form>
 
     <div class="container">
-
+        
         @!section('root')
     </div>
 
