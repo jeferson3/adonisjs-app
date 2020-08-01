@@ -11,7 +11,8 @@
                     <div class="form-group">
                         <div class="md-form">
                             <label for="name">Nome</label>
-                            <input type="text" id="name" name="name" class="form-control" value="{{product.name}}">
+                            <input type="text" id="name" name="name" class="form-control {{hasErrorFor('name')?'is-invalid':''}}" value="{{product.name}}">
+                            <small class="invalid-feedback">{{getErrorFor('name')}}</small>
                         </div>
                     </div>
                 </div>
@@ -19,7 +20,8 @@
                     <div class="form-group">
                         <div class="md-form">
                             <label for="price">Preço</label>
-                            <input type="text" id="price" name="price" class="form-control" value="{{product.price}}">
+                            <input type="text" id="price" name="price" class="form-control {{hasErrorFor('price')?'is-invalid':''}}" value="{{product.price}}">
+                            <small class="invalid-feedback">{{getErrorFor('price')}}</small>
                         </div>
                     </div>
                 </div>
@@ -29,30 +31,25 @@
                     <div class="form-group">
                         <div class="md-form">
                             <label for="description"></label>
-                            <textarea placeholder="Decrição" name="description" id="description" cols="30" rows="10" class="form-control"> {{product.description}}
+                            <textarea placeholder="Decrição" name="description" id="description" cols="30" rows="10" class="form-control {{hasErrorFor('description')?'is-invalid':''}}"> {{product.description}}
                             </textarea>
+                            <small class="invalid-feedback">{{getErrorFor('description')}}</small>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                {{--  {{prodCategories[$loop.index].name == category.name?'selected':''}}  --}}
                 <div class="col-md-12">
-                    <select class="mdb-select md-form" multiple searchable="Pesquisar" name="category[]">
+                    <select class="mdb-select md-form {{hasErrorFor('category')?'is-invalid':''}}" multiple searchable="Pesquisar" name="category[]">
                     <option value="" disabled selected>Adicionar categoria</option>
                     @each(category in categories)
                     <option {{nameCategories.indexOf(category.name)!=-1?'selected':''}} value="{{category.id}}">
                           {{category.name }} 
                     </option>
                     @endeach
-
-                    
-                    
-                </select>
-                
-
+                    </select>
+                    <small class="invalid-feedback">{{getErrorFor('category')}}</small>
                 </div>
-                
             </div>
             <div class="row">
                 <div class="col-md-12">
