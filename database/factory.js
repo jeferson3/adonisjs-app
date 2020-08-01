@@ -14,16 +14,16 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
-// Factory.blueprint('App/Models/Product', (faker) => {
-//   return {
-//     name: faker.sentence({words: 3}),
-//     description: faker.paragraph(),
-//     price: faker.floating({fixed:2, min: 1, max: 100}),
-//   }
-// })
-
-Factory.blueprint('App/Models/Category', (faker) => {
+Factory.blueprint('App/Models/Product', (faker) => {
   return {
-    name: faker.sentence({words: 2}),
+    name: faker.sentence({words: 3}),
+    description: faker.paragraph(),
+    price: faker.floating({fixed:2, min: 1000, max: 10000}),
   }
 })
+
+// Factory.blueprint('App/Models/Category', (faker) => {
+//   return {
+//     name: faker.sentence({words: 2}),
+//   }
+// })
