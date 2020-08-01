@@ -19,7 +19,7 @@ class Product extends Model {
   }
 
   categories(){
-    return this.hasMany('App/Models/Category');
+    return this.belongsToMany('App/Models/Category').pivotTable('product_categories');
   }
 }
 
