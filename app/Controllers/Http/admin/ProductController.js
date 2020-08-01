@@ -45,9 +45,9 @@ class ProductController {
    * @param {View} ctx.view
    */
   async create({ request, response, view }) {
-    
+
     var categories = await Category.all();
-    return view.render('admin.products.create', {'categories':categories.toJSON()})
+    return view.render('admin.products.create', { 'categories': categories.toJSON() })
   }
 
   /**
@@ -60,12 +60,13 @@ class ProductController {
    */
   async store({ request, response, session }) {
     var image = new Image()
-    
+
     var product = request.except(['_csrf', 'category'])
     var categories = request.all().category;
+    product.price = product.price.replace(' ', '').replace('.', '').replace('R$', '')
 
-    product.price = product.price.replace(',', '.').replace(' ', '').replace('R$', '');
-
+    product.price = product.price.replace('R$', '').replace(' ', '').replace(',', '.')
+    product.price = parseFloat(product.price).toFixed(2)
     var prod = await Product.create(product);
 
     if (!prod) {
@@ -80,7 +81,7 @@ class ProductController {
       image.save(prod, request)
     }
     session.flash({ message: 'Produto criado com sucesso' })
-    
+
     return response.route('products.index');
   }
 
@@ -97,7 +98,7 @@ class ProductController {
     var { id } = params;
     var product = await Product.query().where('id', id).with('images').first()
 
-    if(!product){
+    if (!product) {
       return response.route('welcome')
     }
     return view.render('admin.products.show', { 'product': product.toJSON() })
@@ -116,21 +117,20 @@ class ProductController {
     var { id } = params;
     var allCategories = await Category.all();
     var product = await Product.query().where('id', id).with('images').first()
-    if(!product){
+    if (!product) {
       return response.route('welcome')
     }
-    var categories = await Product.query().where('id', id).with('categories').first() 
+    var categories = await Product.query().where('id', id).with('categories').first()
     categories = categories.toJSON().categories
-    let nameCategories =[]
-    if(categories){
+    let nameCategories = []
+    if (categories) {
       categories.forEach(e => {
         nameCategories.push(e.name)
       });
     }
-
-    return Formats.pass(product.toJSON().price.toString().replace('.',','))
-    
-    return view.render('admin.products.edit', { 'product': product, 'categories':allCategories.toJSON(),'prodCategories':categories, nameCategories })
+    product.price = parseFloat(product.price).toFixed(2)
+    product.price = 'R$ ' + product.toJSON().price.toString().replace('.', ',')
+    return view.render('admin.products.edit', { 'product': product, 'categories': allCategories.toJSON(), 'prodCategories': categories, nameCategories })
   }
 
   /**
@@ -143,20 +143,21 @@ class ProductController {
    */
   async update({ params, session, request, response }) {
     var image = new Image()
-    
+
     var { id } = params;
     var newProduct = request.except(['_csrf', '_method', 'category'])
     var categories = request.all().category;
 
     if (id || request.get()._method == 'PUT' || newProduct.name != '' || newProduct.price != '' || newProduct.description != '') {
 
-      newProduct.price = newProduct.price.replace(',', '.').replace(' ', '').replace('R$', '');
+      newProduct.price = newProduct.price.replace('R$', '').replace(' ', '').replace(',', '.')
+      newProduct.price = parseFloat(newProduct.price).toFixed(2)
 
       var product = await Product.query().where('id', id).update(newProduct);
-      if(!product){
+      if (!product) {
         return response.route('welcome')
       }
-      if(categories){
+      if (categories) {
         let prod = await Product.find(id)
         await prod.categories().detach()
         await prod.categories().attach(categories);
@@ -180,12 +181,12 @@ class ProductController {
    * @param {Response} ctx.response
    */
   async destroy({ params, session, request, response }) {
-    
+
     var referer = request.headers().referer;
     if (id || request.get()._method == 'DELETE') {
       var { id } = params;
       var product = await Product.findOrFail(id);
-      if(!product){
+      if (!product) {
         return response.route('welcome')
       }
       await product.delete()
