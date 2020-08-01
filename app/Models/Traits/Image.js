@@ -36,6 +36,14 @@ class Image {
 
     await prod.images().createMany(images)
   }
+
+  async delete(images, response, id){
+    var removeFile = Helpers.promisify(require('fs').unlink)
+    images.forEach(image => {
+      removeFile(Helpers.tmpPath(`uploads/${image.photo}`))
+    });
+
+  }
 }
 
 module.exports = Image
