@@ -51,7 +51,8 @@ Route.group(function() {
 
 Route.group(function() {
     Route.get('/users', 'UserController.index').as('index')
-}).namespace('admin').prefix('admin').as('users')
+    Route.get('/users/create', 'UserController.create').as('create')
+}).namespace('admin').prefix('admin').as('users').middleware('auth')
 
 Route.get('images/:photo', 'ImageController.show').as('image.show');
 Route.get('images/:id/delete/:photo', 'ImageController.delete').as('image.delete');
