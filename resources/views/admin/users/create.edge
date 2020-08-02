@@ -1,0 +1,54 @@
+@layout('layouts.admin')
+
+@section('root')
+  @include('components.nav_users')  
+<div class="col-md-10 mx-auto">
+  <form method="POST">
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="md-form form-group">
+          <input type="email" class="form-control" id="inputEmail4MD" >
+          <label for="inputEmail4MD">Email</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="md-form form-group">
+          <input type="password" class="form-control" id="inputPassword4MD">
+          <label for="inputPassword4MD">Password</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="md-form form-group">
+          <input type="text" class="form-control" id="inputAddressMD">
+          <label for="inputAddressMD">Nome completo</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="md-form form-group">
+          <input type="text" class="form-control" id="inputAddress2MD">
+          <label for="inputAddress2MD">Endereço</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6">
+        <div class="md-form form-group">
+          <input type="text" class="form-control" id="inputCityMD">
+          <label for="inputCityMD">Cidade</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="md-form form-group">
+          <input type="text" class="form-control" id="inputZipMD">
+          <label for="inputZipMD">CEP</label>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-md">Sign in</button>
+  </form>
+</div>
+
+@endsection
+
