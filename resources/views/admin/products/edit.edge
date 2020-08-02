@@ -1,6 +1,7 @@
 @layout('layouts.admin')
 
 @section('root')
+@include('components.nav_products')
 
 <form action="{{'/admin/products/'+product.id+'?_method=PUT'}}" method="post" enctype="multipart/form-data">
     {{ csrfField() }}
