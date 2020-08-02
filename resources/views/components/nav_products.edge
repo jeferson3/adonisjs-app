@@ -1,0 +1,7 @@
+
+<div class="row justify-content-center my-5">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a type="button" href="{{route('products.index')}}" class="btn btn-primary {{url == '/admin/products'? 'active': ''}}">Meus produtos</a>
+        <a type="button" href="{{route('products.create')}}" class="btn btn-primary {{url == '/admin/products/create'? 'active': ''}}">Novo produto</a>
+    </div>
+</div>
