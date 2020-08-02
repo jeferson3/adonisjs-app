@@ -56,7 +56,7 @@
             <img src="https://www.strokejoinville.com.br/wp-content/uploads/sites/804/2017/05/produto-sem-imagem-1.gif" class="img-prod">
             @endif
         </div>
-        <div class="com-md-6">
+        <div class="com-md-5">
             <form action="{{route('cart.store')}}" method="post">
                 {{ csrfField() }}
                 <input type="hidden" name="product_id" value="{{product.id}}">
@@ -65,7 +65,8 @@
                     <h1>
                         Preço:
                         <strong style="color:green;">
-                            R$ {{product.price.toString().replace('.',',')}}
+                            R$ {{product.price.toFixed(2).toString().replace('.',',')}}
+                                        
                         </strong> 
                     </h1>
                 </div>
