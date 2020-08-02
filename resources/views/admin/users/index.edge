@@ -1,0 +1,9 @@
+@layout('layouts.admin')
+
+@section('root')
+  @include('components.nav_users')
+  @each(user in users)
+    {{user.username}}
+  @endeach
+@endsection
+
