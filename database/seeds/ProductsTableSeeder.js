@@ -20,8 +20,8 @@ class ProductsTableSeeder {
     // Factory.model('App/Models/Product').createMany(5)
     // Factory.model('App/Models/Category').createMany(5)
     // User.create({
-    //   username: 'jeferson',
-    //   email: 'jeferson@email.com',
+    //   username: 'maria',
+    //   email: 'maria@email.com',
     //   password: '123456'
 
     // })
