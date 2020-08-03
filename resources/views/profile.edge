@@ -1,0 +1,22 @@
+@layout('layouts.app')
+
+@section('root')
+<div class="col-md-10 mx-auto">
+    <div class="card testimonial-card">
+    <div class="card-up indigo lighten-1"></div>
+    <div class="avatar mx-auto white">
+      <img src="https://www.promoview.com.br/uploads/images/unnamed%2819%29.png" class="rounded-circle img-fluid" style="width:300px;"
+        alt="woman avatar">
+    </div>
+    <div class="card-body text-center">
+      <h4 class="card-title">{{user.fullname}}</h4>
+      <small>{{user.email}}</small>
+      <hr>
+      <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci <i class="fas fa-quote-right"></i>
+      </p>
+    </div>
+    </div>
+        
+</div>
+@endsection
+
