@@ -24,7 +24,7 @@ Route.get('/:slug', 'HomeController.show').as('product.single').prefix('product'
 // routes for authentication
 
 Route.group(function () {
-    
+
 
     Route.get('login', 'AuthController.index').as('index').middleware('guest');
     Route.get('register', 'AuthController.registerIndex').as('register').middleware('guest');
@@ -39,20 +39,20 @@ Route.group(function () {
 
 // routes for admin
 
-Route.group(function() {
+Route.group(function () {
     Route.resource('products', 'ProductController')
-    .validator(new Map([
-        [['products.store'], ['ProductValidator']],
-        [['products.update'], ['ProductValidator']]
+        .validator(new Map([
+            [['products.store'], ['ProductValidator']],
+            [['products.update'], ['ProductValidator']]
 
-    ]))
-    
+        ]))
+
 }).prefix('admin').namespace('admin').middleware('auth')
 
-Route.group(function() {
-    Route.get('/users', 'UserController.index').as('index')
-    Route.get('/users/create', 'UserController.create').as('create')
-}).namespace('admin').prefix('admin').as('users').middleware('auth')
+Route.group(function () {
+    Route.resource('users', 'UserController')
+
+}).namespace('admin').prefix('admin').middleware('auth')
 
 Route.get('images/:photo', 'ImageController.show').as('image.show');
 Route.get('images/:id/delete/:photo', 'ImageController.delete').as('image.delete');
