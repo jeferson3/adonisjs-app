@@ -63,7 +63,11 @@
                     {{auth.user.username}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
+                    @if(auth.user.type == 'admin')
                     <a class="dropdown-item" href="{{route('products.index')}}">Dashboard</a>
+                    @else
+                    <a class="dropdown-item" href="{{route('profile')}}">Perfil</a>
+                    @endif
                     <a class="dropdown-item" onclick="document.querySelector('form.logout').submit()">Sair</a>
                 </div>
                 </li>
