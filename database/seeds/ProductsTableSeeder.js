@@ -18,11 +18,18 @@ const User = use('App/Models/User')
 class ProductsTableSeeder {
   async run () {
     // Factory.model('App/Models/Product').createMany(5)
+    
     // Factory.model('App/Models/Category').createMany(5)
+    
     // User.create({
-    //   username: 'maria',
-    //   email: 'maria@email.com',
-    //   password: '123456'
+    //   username: 'jeferson',
+    //   email: 'jeferson@email.com',
+    //   password: '123456',
+    //   fullname:'José Jeferson Lopes Gomes',
+    //   address:'Vila São José, 21',
+    //   city:'Ingazeira-PE',
+    //   state:'Pernambuco',
+    //   zipcode:'56830-000'
 
     // })
   }
