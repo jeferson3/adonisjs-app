@@ -22,8 +22,8 @@ Factory.blueprint('App/Models/Product', (faker) => {
   }
 })
 
-// Factory.blueprint('App/Models/Category', (faker) => {
-//   return {
-//     name: faker.sentence({words: 2}),
-//   }
-// })
+Factory.blueprint('App/Models/Category', (faker) => {
+  return {
+    name: faker.sentence({words: 2}),
+  }
+})
