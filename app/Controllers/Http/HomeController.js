@@ -27,7 +27,10 @@ class HomeController {
         products = await products.products().with('images').with('categories').fetch()
         products = products.toJSON()
         return view.render('categories', {products, nameCategory});
-        
+    }
+    async profile({view, auth}){
+        var user = auth.user;
+        return view.render('profile', {user})
     }
 }
 
