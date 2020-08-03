@@ -1,54 +1,70 @@
 @layout('layouts.admin')
 
 @section('root')
-  @include('components.nav_users')  
+@include('components.nav_users')  
 <div class="col-md-10 mx-auto">
-  <form method="POST">
+  <form method="POST" action="{{route('users.store')}}">
+    {{ csrfField() }}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="md-form form-group">
+          <label for="username">Nome de usuário</label>
+          <input type="text" class="form-control" id="username" name="username">
+        </div>
+      </div>
+    </div>
     <div class="form-row">
       <div class="col-md-6">
         <div class="md-form form-group">
-          <input type="email" class="form-control" id="inputEmail4MD" >
-          <label for="inputEmail4MD">Email</label>
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email">
         </div>
       </div>
       <div class="col-md-6">
         <div class="md-form form-group">
-          <input type="password" class="form-control" id="inputPassword4MD">
-          <label for="inputPassword4MD">Password</label>
+          <label for="password">Senha</label>
+          <input type="password" class="form-control" id="password" name="password">
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <div class="md-form form-group">
-          <input type="text" class="form-control" id="inputAddressMD">
-          <label for="inputAddressMD">Nome completo</label>
+          <label for="fullname">Nome completo</label>
+          <input type="text" class="form-control" id="fullname" name="fullname">
         </div>
       </div>
       <div class="col-md-12">
         <div class="md-form form-group">
-          <input type="text" class="form-control" id="inputAddress2MD">
-          <label for="inputAddress2MD">Endereço</label>
+          <label for="address">Endereço</label>
+          <input type="text" class="form-control" id="address" name="address">
         </div>
       </div>
     </div>
     <div class="form-row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="md-form form-group">
-          <input type="text" class="form-control" id="inputCityMD">
-          <label for="inputCityMD">Cidade</label>
+          <label for="state">Estado</label>
+          <input type="text" class="form-control" id="state" name="state">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="md-form form-group">
-          <input type="text" class="form-control" id="inputZipMD">
-          <label for="inputZipMD">CEP</label>
+          <label for="city">Cidade</label>
+          <input type="text" class="form-control" id="city" name="city">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="md-form form-group">
+          <label for="zipcode">CEP</label>
+          <input type="text" class="form-control" id="zipcode" name="zipcode">
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary btn-md">Sign in</button>
+    <div class="row justify-content-center">
+      <button type="submit" class="btn btn-primary btn-md">Cadastrar</button>
+    </div>
   </form>
 </div>
-
 @endsection
 
