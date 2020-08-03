@@ -21,17 +21,17 @@ class ProductsTableSeeder {
     
     // Factory.model('App/Models/Category').createMany(5)
     
-    // User.create({
-    //   username: 'jeferson',
-    //   email: 'jeferson@email.com',
-    //   password: '123456',
-    //   fullname:'José Jeferson Lopes Gomes',
-    //   address:'Vila São José, 21',
-    //   city:'Ingazeira-PE',
-    //   state:'Pernambuco',
-    //   zipcode:'56830-000'
+    User.create({
+      username: 'maria',
+      email: 'maria@email.com',
+      password: '123456',
+      fullname:'Maria da Silva',
+      address:'Vila São José, 21',
+      city:'tetse-PE',
+      state:'Pernambuco',
+      zipcode:'56830-000'
 
-    // })
+    })
   }
 }
 
