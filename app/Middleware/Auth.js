@@ -15,7 +15,10 @@ class Auth {
   async handle ({ request, response, auth }, next) {
     // call next to advance the request
     if(await auth.user){
-      return await next()
+      if(auth.user.type == 'admin'){
+        
+        return await next()
+      }
     }
     return response.route('welcome');
   }
