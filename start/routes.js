@@ -17,8 +17,9 @@
 const Route = use('Route')
 // routes for users
 
-Route.get('/category/:slug', 'HomeController.category').as('category')
 Route.get('', 'HomeController.index').as('welcome')
+Route.get('/category/:slug', 'HomeController.category').as('category')
+Route.get('/profile', 'HomeController.profile').as('profile')
 Route.get('/:slug', 'HomeController.show').as('product.single').prefix('product')
 
 // routes for authentication
