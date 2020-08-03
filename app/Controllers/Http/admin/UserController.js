@@ -10,9 +10,11 @@ class UserController {
     async create({view}){
         return view.render('admin.users.create')
     }
-    async store({request, response, view}){
-        var user = request.except('_csrf')
+    async store({request, response, session}){
+        var user = request.except(['_csrf', '_method'])
         await User.create(user)
+        session.flash({message:'Usuário criado com sucesso'})
+
         return response.route('users.index');
     }
     async edit({view, params}){
@@ -20,17 +22,22 @@ class UserController {
         var user = await User.query().where('id', id).first()
         return view.render('admin.users.edit', {user})
     }
-    async update({request, response, params}){
+    async update({request, response, params, session}){
         var {id} = params
-        var newUser = request.except('_csrf');
-        var user = await User.query().where('id', id).first()
-        user.update(newUser)
-        return response.route('admin.users.index');
+        var newUser = request.except(['_csrf','_method']);
+        if(!newUser.password){
+            newUser = request.except(['_csrf', '_method', 'password'])
+        }
+    
+        session.flash({message:'Usuário editado com sucesso'})
+        await User.query().where('id', id).update(newUser)
+        return response.route('users.index');
     }
-    async destroy({request, response, params}){
+    async destroy({request, response, params, session}){
         var {id} = params
         await User.query().where('id', id).delete()
-        return response.route('admin.users.index');
+        session.flash({message:'Usuário removido com sucesso'})
+        return response.route('users.index');
     }
 }
 
