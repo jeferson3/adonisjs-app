@@ -11,9 +11,13 @@ class UserController {
         return view.render('admin.users.create')
     }
     async store({request, response, session}){
+        var data = {
+            message:'Usuário criado com sucesso',
+            type:'success'
+        }
         var user = request.except(['_csrf', '_method'])
         await User.create(user)
-        session.flash({message:'Usuário criado com sucesso'})
+        session.flash({message:data})
 
         return response.route('users.index');
     }
@@ -23,20 +27,28 @@ class UserController {
         return view.render('admin.users.edit', {user})
     }
     async update({request, response, params, session}){
+        var data = {
+            message:'Usuário atualizado com sucesso',
+            type:'success'
+        }
         var {id} = params
         var newUser = request.except(['_csrf','_method']);
         if(!newUser.password){
             newUser = request.except(['_csrf', '_method', 'password'])
         }
     
-        session.flash({message:'Usuário editado com sucesso'})
+        session.flash({message:data})
         await User.query().where('id', id).update(newUser)
         return response.route('users.index');
     }
     async destroy({request, response, params, session}){
+        var data = {
+            message:'Usuário removido com sucesso',
+            type:'success'
+        }
         var {id} = params
         await User.query().where('id', id).delete()
-        session.flash({message:'Usuário removido com sucesso'})
+        session.flash({message: data})
         return response.route('users.index');
     }
 }
