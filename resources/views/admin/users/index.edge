@@ -35,21 +35,7 @@ aria-multiselectable="true">
   <div id="collapse{{user.id}}" class="collapse" role="tabpanel" aria-labelledby="card{{user.id}}"
     data-parent="#accordionEx78">
     <div class="card-body">
-            
-      <div class="md-form input-group mb-3">
-        <div class="input-group-append">
-          <a href="" class="btn btn-md btn-default m-0 px-3">
-            <i class="fas fa-lock"></i></a>
-        </div>
-        <input type="password" value="123456" class="{{user.username}} form-control" placeholder="" aria-label="Example text with button addon"
-          aria-describedby="MaterialButton-addon1">
-        <div class="input-group-append">
-          <button class="btn btn-md btn-warning m-0 px-3" onclick="
-          document.querySelector('input.{{user.username}}').type == 'text'?document.querySelector('input.{{user.username}}').type = 'password':document.querySelector('input.{{user.username}}').type = 'text'" type="button" id="MaterialButton-addon1">
-            <i class="fas fa-eye-slash"></i>
-          </button>
-        </div>
-      </div>
+      <h5>{{user.fullname}}</h5>
       <div class="md-form input-group mb-3">
         <div class="input-group-append">
           <a href="" class="btn btn-md btn-default m-0 px-3">
