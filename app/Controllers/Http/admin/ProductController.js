@@ -60,7 +60,10 @@ class ProductController {
    */
   async store({ request, response, session }) {
     var image = new Image()
-
+    var messageData = {
+      message:'Produto criado com sucesso',
+      type:'success'
+    }
     var product = request.except(['_csrf', 'category'])
     var categories = request.all().category;
     product.price = product.price.replace(' ', '').replace('.', '').replace('R$', '')
@@ -80,7 +83,7 @@ class ProductController {
     if (request.file('images')) {
       image.save(prod, request)
     }
-    session.flash({ message: 'Produto criado com sucesso' })
+    session.flash({ message: messageData })
 
     return response.route('products.index');
   }
@@ -148,6 +151,10 @@ class ProductController {
     var { id } = params;
     var newProduct = request.except(['_csrf', '_method', 'category'])
     var categories = request.all().category;
+    var data = {
+      message:'Produto atualizado com sucesso',
+      type: 'success'
+    }
 
     if (id || request.get()._method == 'PUT' || newProduct.name != '' || newProduct.price != '' || newProduct.description != '') {
 
@@ -168,7 +175,7 @@ class ProductController {
         image.save(await Product.find(id), request)
       }
     }
-    session.flash({ message: 'Produto atualizado com sucesso' })
+    session.flash({ message: data })
 
     return response.redirect('back');
   }
@@ -183,7 +190,10 @@ class ProductController {
    */
   async destroy({ params, session, request, response }) {
     var image = new Image()
-
+    var dataMessage = {
+      message:'Produto deletado com sucesso',
+      type: 'success'
+    }
     var referer = request.headers().referer;
     if (id || request.get()._method == 'DELETE') {
       var { id } = params;
@@ -199,7 +209,7 @@ class ProductController {
       // return images;
       await product.delete()
 
-      session.flash({ message: 'Produto deletado com sucesso' })
+      session.flash({ message: dataMessage })
     }
     return response.route('products.index');
   }
