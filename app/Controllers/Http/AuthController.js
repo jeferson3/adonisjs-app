@@ -11,27 +11,34 @@
 var User = use('App/Models/User')
 
 class AuthController {
-  
-  async index({view}) {
+
+  async index({ view }) {
     return view.render('auth.index')
   }
 
-  async login({ request, response, auth }) {
+  async login({ request, response, auth, session }) {
     var { email, password } = request.all();
+    var data = {
+      message:'Falha no login',
+      type: 'error'
+    }
+    try {
+      await auth.attempt(email, password)
+        return response.route('products.index');
 
-    if(await auth.attempt(email, password)){
-      return response.route('products.index');
-
+    } catch (error) {
+      session.flash({message: data})
+      return response.redirect('back')
     }
 
-    return 'erro';
+
   }
 
-  async register({view}){
+  async register({ view }) {
     return view.render('auth.register')
   }
 
-  async store({view}){
+  async store({ view }) {
     return view.render('auth.index')
   }
 
