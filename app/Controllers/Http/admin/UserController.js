@@ -1,5 +1,7 @@
 'use strict'
 
+const Hash = use('Hash')
+
 const User = use('App/Models/User')
 
 class UserController {
@@ -36,9 +38,9 @@ class UserController {
         if(!newUser.password){
             newUser = request.except(['_csrf', '_method', 'password'])
         }
-    
-        session.flash({message:data})
+        newUser.password = await Hash.make(newUser.password)
         await User.query().where('id', id).update(newUser)
+        session.flash({message:data})
         return response.route('users.index');
     }
     async destroy({request, response, params, session}){
