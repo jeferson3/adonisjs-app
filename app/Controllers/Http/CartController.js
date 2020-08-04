@@ -7,6 +7,10 @@ class CartController {
         return view.render('cart', { 'cart': session.get('cart') })
     }
     async store({ request, response, session }) {
+        var data = {
+            message:'Produto adicionado ao carrinho',
+            type: 'success'
+          }
         const cart = new Cart()
         var { product_id, qtd } = request.all();
         var id = parseInt(product_id);
@@ -17,11 +21,15 @@ class CartController {
         }
         await cart.save(id, qtd, response, session)
         
-        session.flash({ message: 'Produto adicionado ao carrinho' })
+        session.flash({ message: data })
         return response.redirect('back');
     }
 
     async destroy({ response, request, session, params }) {
+        var data = {
+            message:'Carrinho atualizado',
+            type: 'success'
+          }
         var { name } = request.all();
         var sessionCart = session.get('cart')
         if (!name) {
@@ -35,7 +43,7 @@ class CartController {
                 index += 1;
             });
         }
-        session.flash({message: 'Carrinho atualizado'})
+        session.flash({message: data})
         return response.redirect('back')
         
     }
