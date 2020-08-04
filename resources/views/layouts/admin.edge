@@ -98,7 +98,7 @@
     </script>
     <script>
         @if(flashMessage('message'))
-            toastr.success("{{flashMessage('message')}}")
+            toastr. {{flashMessage('message').type}}("{{flashMessage('message').message}}")
         @endif
     </script>
     @!section('script')
