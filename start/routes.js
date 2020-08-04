@@ -26,14 +26,10 @@ Route.get('/:slug', 'HomeController.show').as('product.single').prefix('product'
 
 Route.group(function () {
 
-
-    Route.get('login', 'AuthController.index').as('index').middleware('guest');
+    Route.get('login', 'AuthController.index').as('index').middleware('guest')
     Route.get('register', 'AuthController.registerIndex').as('register').middleware('guest');
-
-
     Route.post('register', 'AuthController.register').as('');
-
-    Route.post('login', 'AuthController.login').as('auth');
+    Route.post('login', 'AuthController.login').as('auth')
     Route.post('logout', 'AuthController.logout').as('logout');
 
 }).as('login');
@@ -45,7 +41,6 @@ Route.group(function () {
         .validator(new Map([
             [['products.store'], ['ProductValidator']],
             [['products.update'], ['ProductValidator']]
-
         ]))
 
 }).prefix('admin').namespace('admin').middleware('auth')
