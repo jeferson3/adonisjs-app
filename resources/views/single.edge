@@ -86,7 +86,7 @@
             <p>
                 Categoria: 
               @each(category in product.categories)
-                <a href="{{route('category', {slug:category.slug})}}">{{category.name}} </a>
+                <a class="category-link" href="{{route('category', {slug:category.slug})}}">{{category.name}} </a>|
               @endeach
             </p>
             <p>
@@ -193,5 +193,15 @@
         }
         }
         }
+  </style>
+  <style>
+      .category-link{
+          text-decoration: none;
+          color: grey;
+      }
+      .category-link:hover{
+        text-decoration: underline;
+        color: blue;
+      }
   </style>
 @endsection
