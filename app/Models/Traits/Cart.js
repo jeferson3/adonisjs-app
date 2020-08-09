@@ -17,7 +17,7 @@ class Cart {
       name,
       price,
       qtd,
-      amount: price * qtd
+      amount: parseFloat(price * qtd).toFixed(2)
     }
 
     if (sessionCart == null) {
@@ -29,7 +29,7 @@ class Cart {
         sessionCart.forEach(p => {
           if (p.name == name) {
             p.qtd = parseInt(p.qtd) + qtd
-            p.amount = parseInt(p.qtd) * p.price
+            p.amount = parseFloat(parseInt(p.qtd) * p.price).toFixed(2)
             sessionCart[index] = p
             session.put('cart', sessionCart)
           }
