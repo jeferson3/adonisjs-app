@@ -4,6 +4,7 @@ const Cart = use('App/Models/Traits/Cart')
 
 class CartController {
     async index({ view, session }) {
+        // return session.get('cart')
         return view.render('cart', { 'cart': session.get('cart') })
     }
     async store({ request, response, session }) {
