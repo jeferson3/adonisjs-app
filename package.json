@@ -30,6 +30,7 @@
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
     "mysql": "^2.18.1",
+    "pg": "^8.3.0",
     "toastr": "^2.1.4",
     "uuid": "^8.3.0"
   },
