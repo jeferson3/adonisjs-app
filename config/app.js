@@ -161,7 +161,7 @@ module.exports = {
     | file, database
     |
     */
-    loader: 'database',
+    loader: 'file',
 
     /*
     |--------------------------------------------------------------------------
