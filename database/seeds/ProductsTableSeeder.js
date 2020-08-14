@@ -16,23 +16,23 @@ const Product = use('App/Models/Product')
 const User = use('App/Models/User')
 
 class ProductsTableSeeder {
-  async run () {
+  async run() {
     // Factory.model('App/Models/Product').createMany(5)
-    
-    // Factory.model('App/Models/Category').createMany(5)
-    
-    // User.create({
-    //   username: 'jeferson',
-    //   email: 'jeferson@email.com',
-    //   password: '123456',
-    //   fullname:'jeferson gomes',
-    //   address:'Vila São José, 21',
-    //   city:'Inzeira-PE',
-    //   state:'Pernambuco',
-    //   zipcode:'56830-000',
-    //   type:'admin'
 
-    // })
+    // Factory.model('App/Models/Category').createMany(5)
+
+    User.create({
+      username: 'Jeferson',
+      email: 'jeferson@email.com',
+      password: 'P@ss',
+      fullname: 'José Jeferson Lopes Gomes',
+      address: 'Vila São José, 21',
+      city: 'Inzeira-PE',
+      state: 'Pernambuco',
+      zipcode: '56830-000',
+      type: 'admin'
+
+    })
   }
 }
 
