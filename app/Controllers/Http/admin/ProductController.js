@@ -1,8 +1,6 @@
 'use strict'
 
 const { route } = require('@adonisjs/framework/src/Route/Manager');
-const Antl = use('Antl')
-const Formats = use('Antl/Formats')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -61,8 +59,8 @@ class ProductController {
   async store({ request, response, session }) {
     var image = new Image()
     var messageData = {
-      message:'Produto criado com sucesso',
-      type:'success'
+      message: 'Produto criado com sucesso',
+      type: 'success'
     }
     var product = request.except(['_csrf', 'category'])
     var categories = request.all().category;
@@ -152,7 +150,7 @@ class ProductController {
     var newProduct = request.except(['_csrf', '_method', 'category'])
     var categories = request.all().category;
     var data = {
-      message:'Produto atualizado com sucesso',
+      message: 'Produto atualizado com sucesso',
       type: 'success'
     }
 
@@ -191,20 +189,20 @@ class ProductController {
   async destroy({ params, session, request, response }) {
     var image = new Image()
     var dataMessage = {
-      message:'Produto deletado com sucesso',
+      message: 'Produto deletado com sucesso',
       type: 'success'
     }
     var referer = request.headers().referer;
     if (id || request.get()._method == 'DELETE') {
       var { id } = params;
-      var product = await Product.query().where('id',id).with('images').first();
+      var product = await Product.query().where('id', id).with('images').first();
       if (!product) {
         return response.route('welcome')
       }
       var images = product.toJSON().images;
-      if(images != ''){
+      if (images != '') {
         await image.delete(images)
-        
+
       }
       // return images;
       await product.delete()
