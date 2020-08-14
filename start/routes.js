@@ -50,6 +50,16 @@ Route.group(function () {
 
 }).namespace('admin').prefix('admin').middleware('auth')
 
+
+Route.group(function () {
+    Route.resource('categories', 'CategoryController')
+    // .validator(new Map([
+    //     [['categories.store'], ['CategoryValidator']],
+    //     [['categories.update'], ['CategoryValidator']]
+    // ]))
+
+}).prefix('admin').namespace('admin').middleware('auth')
+
 Route.get('images/:photo', 'ImageController.show').as('image.show');
 Route.get('images/:id/delete/:photo', 'ImageController.delete').as('image.delete');
 
