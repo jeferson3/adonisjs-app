@@ -9,7 +9,7 @@ class Image extends Model {
     // static get computed () {
     //     return ['url']
     //   }
-    
+
     //   getUrl ({ photo }) {
     //     return `${Env.get('APP_URL')}/images/${photo}`
     //   }

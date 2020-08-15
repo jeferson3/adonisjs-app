@@ -6,6 +6,7 @@ const Schema = use('Schema')
 class ImagesSchema extends Schema {
   up () {
     this.create('images', (table) => {
+      table.increments()
       table
       .integer('product_id')
       .unsigned()

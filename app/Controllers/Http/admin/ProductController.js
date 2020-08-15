@@ -19,7 +19,7 @@ const Database = use('Database')
 class ProductController {
   /**
    * Show a list of all products.
-   * GET products
+   * GET products 
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -59,8 +59,8 @@ class ProductController {
   async store({ request, response, session }) {
     var image = new Image()
     var messageData = {
-      message:'Produto criado com sucesso',
-      type:'success'
+      message: 'Produto criado com sucesso',
+      type: 'success'
     }
     var product = request.except(['_csrf', 'category'])
     var categories = request.all().category;
@@ -68,6 +68,8 @@ class ProductController {
 
     product.price = product.price.replace('R$', '').replace(' ', '').replace(',', '.')
     product.price = parseFloat(product.price).toFixed(2)
+
+
     var prod = await Product.create(product);
 
     if (!prod) {
@@ -150,7 +152,7 @@ class ProductController {
     var newProduct = request.except(['_csrf', '_method', 'category'])
     var categories = request.all().category;
     var data = {
-      message:'Produto atualizado com sucesso',
+      message: 'Produto atualizado com sucesso',
       type: 'success'
     }
 
@@ -189,19 +191,19 @@ class ProductController {
   async destroy({ params, session, request, response }) {
     var image = new Image()
     var dataMessage = {
-      message:'Produto deletado com sucesso',
+      message: 'Produto deletado com sucesso',
       type: 'success'
     }
     if (id || request.get()._method == 'DELETE') {
       var { id } = params;
-      var product = await Product.query().where('id',id).with('images').first();
+      var product = await Product.query().where('id', id).with('images').first();
       if (!product) {
         return response.route('welcome')
       }
       var images = product.toJSON().images;
-      if(images != ''){
+      if (images != '') {
         await image.delete(images)
-        
+
       }
       // return images;
       await product.delete()

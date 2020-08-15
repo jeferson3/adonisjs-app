@@ -15,7 +15,7 @@ class Image {
   async save(prod, request){
     var productIages = request.file('images', {
       types: ['image'],
-      size: '2mb',
+      size: '5mb',
       extnames: ['png', 'jpg', 'jpeg']
 
     });
@@ -33,7 +33,7 @@ class Image {
     var images = productIages.movedList().map(data => {
       return {photo:data.fileName}
     })
-
+    
     await prod.images().createMany(images)
   }
 
